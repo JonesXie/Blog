@@ -19,7 +19,9 @@ git commit -m 'deploy'
 # 如果发布到 https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
+echo "-------------开始上传-------------"
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:JonesXie/blog.git master:gh-pages
+echo "-------------上传完毕-------------"
 
 cd -
