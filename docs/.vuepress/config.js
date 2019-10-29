@@ -1,5 +1,5 @@
 module.exports = {
-  base: '/blog/',
+  base: '/Blog/',
   title: 'WEB前端开发',
   description: '前端开发中的每一点积累',
   head: [
