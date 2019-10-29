@@ -1,0 +1,23 @@
+{
+  "name": "jones_blog",
+  "version": "1.0.0",
+  "description": "个人博客--记录前行中的点滴",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonesXie/blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonesXie/blog/issues"
+  },
+  "homepage": "https://github.com/JonesXie/blog#readme",
+  "devDependencies": {
+    "vuepress": "^1.2.0"
+  }
+}
