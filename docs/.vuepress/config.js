@@ -18,8 +18,25 @@ module.exports = {
       link: '/javascript/'
     }],
     sidebar: [{
-      title: 'JavaScript',
-      path: '/javascript/'
-    }, '/webpack/']
+        title: 'WebEasy',
+        path: '/webeasy/',
+        children: [{
+          title: 'vuepress搭建',
+          path: '/webeasy/vuepress.md'
+        }]
+      },
+      {
+        title: 'JavaScript',
+        path: '/javascript/',
+        children: [{
+          title: 'TypeScript',
+          path: '/javascript/typescript'
+        }]
+      },
+      {
+        title: 'Webpack',
+        path: '/webpack/'
+      }
+    ]
   }
 }
