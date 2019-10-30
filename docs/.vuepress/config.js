@@ -11,7 +11,7 @@ module.exports = {
   ],
   themeConfig: {
     // logo: "/logo.png",
-    repo: 'JonesXie/Blog',
+    repo: 'https://github.com/JonesXie',
     repoLabel: 'GitHub',
     nav: [{
       text: 'JS',
