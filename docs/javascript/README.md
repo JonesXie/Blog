@@ -1,1 +1,3 @@
 # Javascipt
+
+此目录是记录JavaScript、TypesSript和ECAMAScript学习中的相关问题以及笔记
