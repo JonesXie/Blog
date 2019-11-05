@@ -23,6 +23,15 @@ module.exports = {
         children: [{
           title: 'vuepress搭建',
           path: '/webeasy/vuepress.md'
+        }, {
+          title: '常用JS方法',
+          path: '/webeasy/method.md'
+        }, {
+          title: 'moment.js常用方法',
+          path: '/webeasy/moment.md'
+        }, {
+          title: '常用正则',
+          path: '/webeasy/regular.md'
         }]
       },
       {
