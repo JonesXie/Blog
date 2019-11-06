@@ -61,3 +61,29 @@ export function deepClone(obj){
   return objClone
 }
 ```
+
+## 复制指定文字到剪切板
+
+```js
+export function copyText(text){
+  if(document.execCommand('Copy')){
+    //创建input
+    var inputZ = document.createElement('input');
+    //添加Id,用于后续操作
+    inputZ.setAttribute('id','inputCopy');
+    //获取传入的值
+    inputZ.value = text;
+    //创建的input添加到body
+    document.body.appendChild(inputZ);
+    //选中input中的值(使用前面的Id)
+    document.getElementById('inputCopy').select();
+    //把值复制下来
+    document.execCommand('Copy')
+    //删除添加的input
+    document.body.removeChild(inputZ);
+  }else{
+    // 复制失败
+    alert('复制失败')
+  }
+}
+```
