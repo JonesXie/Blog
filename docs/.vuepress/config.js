@@ -14,6 +14,9 @@ module.exports = {
     repo: 'https://github.com/JonesXie',
     repoLabel: 'GitHub',
     nav: [{
+      text: 'WebEasy',
+      link: '/webeasy/'
+    }, {
       text: 'JS',
       link: '/javascript/'
     }],
