@@ -6,7 +6,7 @@ module.exports = {
     ['link', {
       rel: 'shortcut icon',
       type: "image/x-icon",
-      href: `./favicon.ico`
+      href: 'https://jonesxie.github.io/blog/favicon.ico'
     }]
   ],
   themeConfig: {
@@ -24,18 +24,34 @@ module.exports = {
         title: 'WebEasy',
         path: '/webeasy/',
         children: [{
-          title: 'vuepress搭建',
-          path: '/webeasy/vuepress.md'
-        }, {
-          title: '常用JS方法',
-          path: '/webeasy/method.md'
-        }, {
-          title: 'moment.js常用方法',
-          path: '/webeasy/moment.md'
-        }, {
-          title: '常用正则',
-          path: '/webeasy/regular.md'
-        }]
+            title: '常用JS方法',
+            path: '/webeasy/method.md'
+          },
+          {
+            title: '常用CSS技巧',
+            path: '/webeasy/css.md'
+          },
+          {
+            title: 'vue实践技巧',
+            path: '/webeasy/vue.md'
+          },
+          {
+            title: '常用正则',
+            path: '/webeasy/regular.md'
+          },
+          {
+            title: 'Git教程',
+            path: '/webeasy/git.md'
+          },
+          {
+            title: 'moment.js',
+            path: '/webeasy/moment.md'
+          },
+          {
+            title: 'vuepress搭建',
+            path: '/webeasy/vuepress.md'
+          },
+        ]
       },
       {
         title: 'JavaScript',
@@ -49,6 +65,9 @@ module.exports = {
         title: 'Webpack',
         path: '/webpack/'
       }
-    ]
-  }
+    ],
+    smoothScroll: true,
+    lastUpdated: '最后更新时间',
+  },
+
 }

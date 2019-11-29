@@ -87,3 +87,11 @@ export function copyText(text){
   }
 }
 ```
+
+## 去除字符串的空格
+
+```js
+export function function trim(str){
+  return str.replace(/\s|\xA0/g,"");
+}
+```
