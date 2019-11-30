@@ -141,7 +141,7 @@ Vue.directive('validtel', {
 
 ```
 
-## VUE 滚动到指定id位置
+## 滚动到指定id位置
 
 ```js
 document.querySelector("#minSize").scrollIntoView(true);
@@ -150,7 +150,7 @@ document.querySelector("#minSize").scrollIntoView(true);
 >1、scrollIntoView()：h5标准，默认参数为`true`(顶部对齐),为`false`是底部对齐  
 >2、querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
 
-## axios请求参数
+## Axios请求参数
 
 ### 1、`get`,需使用 **params** 解析数据
 
@@ -213,7 +213,7 @@ let updata =JSON.stringify({id:132,name:'xie'})
 axios.post("/demo/url",updata, {headers:{"Content-Type": "application/json;charset=utf-8"}})
 ```
 
-## render 函数
+## Render函数
 
 ### render定义
 
