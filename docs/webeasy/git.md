@@ -4,7 +4,7 @@ Git掘金小册：[https://juejin.im/book/5a124b29f265da431d3c472e](https://juej
 
 ## 一、Git常用操作
 
-### 1、全局设置
+### 全局设置
 
 ```git
 git config --global user.name "username" //全局用户名
@@ -15,18 +15,78 @@ git config user.name
 git config user.email
 ```
 
-### 2、常用命令
+### 常用命令
 
 ```git
 git init  //git初始化
+
 git remote add origin https://github.com/xxxx/xxx.git  //设置远程仓库
+
 git add .  //将所有更改添加到暂存区
+
 git commit -m “新提交消息”  //提交信息
+
 git push  //推送
+
 git pull  //拉取
+
 ```
 
-### 3、.gitignore
+### 远程设置
+
+#### 1、设置多远程
+
+```git
+//添加远程
+git remote add origin https://github.com/xxxx/xxx.git  //设置远程仓库(origin)
+git remote add mirror https://gitee.com/xxxx/xxx.git  //设置远程仓库(mirror)
+
+//拉取推送
+git pull origin master
+git pull mirror master
+git push origin master
+git push mirror master
+```
+
+#### 2、一条命令同时更新多个远程仓库
+
+>之前添加的远程可以删除，也可以不管它
+
+```git
+git remote set-url --add origin https://gitee.com/xxxx/xxx.git
+
+//拉取推送
+git push origin master
+```
+
+>**.git/config 中的 origin部分的内容**
+
+```git
+[remote "origin"]
+url = https://github.com/JonesXie/xxx.git
+url = https://gitee.com/Jonesxie/xxx.git
+fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+#### 3、免输入密码操作远程仓库
+
+>1、配置文件的url里配上用户名和密码即可**免掉输入密码**  
+>2、当然可以使用**SSH密钥**
+
+```git
+url = https://${user}:${password}@github.com/JonesXie/xxx.git
+```
+
+### 生成SSH密钥
+
+>1、本地SSH密钥存在于**C:\Users\Jonesxie\.ssh**文件夹中  
+>2、**id_rsa**为私钥，**id_rsa.pub**为公钥
+
+```git
+ssh-keygen -t rsa -C "anhuixieqijun@163.com"
+```
+
+### .gitignore
 
 ```git
 .DS_Store

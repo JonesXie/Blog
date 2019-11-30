@@ -142,6 +142,31 @@ module.exports = {
 }
 ```
 
+## 设置多语言
+
+>1、在`.vuepress`文件夹下的`config.js`中配置  
+>2、[官方文档地址](https://v1.vuepress.vuejs.org/zh/guide/i18n.html#站点多语言配置)  
+
+```js
+// .vuepress/config.js
+module.exports = {
+  locales: {
+    // 键名是该语言所属的子路径
+    // 作为特例，默认语言可以使用 '/' 作为其路径。
+    '/': {
+      lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
+      title: 'VuePress',
+      description: 'Vue-powered Static Site Generator'
+    },
+    '/zh/': {
+      lang: 'zh-CN',
+      title: 'VuePress',
+      description: 'Vue 驱动的静态网站生成器'
+    }
+  }
+}
+```
+
 ## 部署
 
 官方文档：[https://vuepress.vuejs.org/zh/guide/deploy.html#github-pages](https://vuepress.vuejs.org/zh/guide/deploy.html#github-pages)  

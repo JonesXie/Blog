@@ -6,7 +6,7 @@ module.exports = {
     ['link', {
       rel: 'shortcut icon',
       type: "image/x-icon",
-      href: 'https://jonesxie.github.io/blog/favicon.ico'
+      href: 'https://jonesxie.gitee.io/blog/favicon.ico'
     }]
   ],
   themeConfig: {
@@ -69,5 +69,16 @@ module.exports = {
     smoothScroll: true,
     lastUpdated: '最后更新时间',
   },
-
+  markdown: {
+    toc: {
+      includeLevel: [2, 3, 4, 5]
+    }
+  },
+  locales: {
+    // 键名是该语言所属的子路径
+    // 作为特例，默认语言可以使用 '/' 作为其路径。
+    '/': {
+      lang: 'zh-CN', // 将会被设置为 <html> 的 lang 属性
+    },
+  }
 }
