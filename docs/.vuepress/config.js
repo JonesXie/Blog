@@ -48,6 +48,10 @@ module.exports = {
             path: '/webeasy/moment.md'
           },
           {
+            title: '命名规范',
+            path: '/webeasy/namewrite.md'
+          },
+          {
             title: 'vuepress搭建',
             path: '/webeasy/vuepress.md'
           },
