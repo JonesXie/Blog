@@ -1,8 +1,8 @@
-# Git教程
+# Git 教程
 
-Git掘金小册：[https://juejin.im/book/5a124b29f265da431d3c472e](https://juejin.im/book/5a124b29f265da431d3c472e)
+Git 掘金小册：[https://juejin.im/book/5a124b29f265da431d3c472e](https://juejin.im/book/5a124b29f265da431d3c472e)
 
-## 一、Git常用操作
+## 一、Git 常用操作
 
 ### 全局设置
 
@@ -30,6 +30,18 @@ git push  //推送
 
 git pull  //拉取
 
+git branch  //查看本地分支
+
+git branch -a  //查看远程分支
+
+git branch new_dev  //创建一个名为new_dev的分支
+
+git checkout new_dev  //切换到new_dev的分支
+
+git checkout -b new_dev  //创建名为new_dev分支并切换到此分支
+
+git merge new_dev  //将new_dev分支合并到当前分支
+
 ```
 
 ### 远程设置
@@ -50,7 +62,7 @@ git push mirror master
 
 #### 2、一条命令同时更新多个远程仓库
 
->之前添加的远程可以删除，也可以不管它
+> 之前添加的远程可以删除，也可以不管它
 
 ```git
 git remote set-url --add origin https://gitee.com/xxxx/xxx.git
@@ -59,7 +71,7 @@ git remote set-url --add origin https://gitee.com/xxxx/xxx.git
 git push origin master
 ```
 
->**.git/config 中的 origin部分的内容**
+> **.git/config 中的 origin 部分的内容**
 
 ```git
 [remote "origin"]
@@ -70,17 +82,17 @@ fetch = +refs/heads/*:refs/remotes/origin/*
 
 #### 3、免输入密码操作远程仓库
 
->1、配置文件的url里配上用户名和密码即可**免掉输入密码**  
->2、当然可以使用**SSH密钥**
+> 1、配置文件的 url 里配上用户名和密码即可**免掉输入密码**  
+> 2、当然可以使用**SSH 密钥**
 
 ```git
 url = https://${user}:${password}@github.com/JonesXie/xxx.git
 ```
 
-### 生成SSH密钥
+### 生成 SSH 密钥
 
->1、本地SSH密钥存在于**C:\Users\Jonesxie\.ssh**文件夹中  
->2、**id_rsa**为私钥，**id_rsa.pub**为公钥
+> 1、本地 SSH 密钥存在于**C:\Users\Jonesxie\.ssh**文件夹中  
+> 2、**id_rsa**为私钥，**id_rsa.pub**为公钥
 
 ```git
 ssh-keygen -t rsa -C "anhuixieqijun@163.com"
@@ -112,11 +124,11 @@ yarn-error.log*
 *.sw?
 ```
 
-## 二、Git本地同步到线上
+## 二、Git 本地同步到线上
 
 ### 1、远程建立一个仓库获取到远程仓库地址
 
->远程地址请勿初始化(即不能有任何文件，否则第九步出错)
+> 远程地址请勿初始化(即不能有任何文件，否则第九步出错)
 
 ### 2、本地新建一个文件夹
 
@@ -132,7 +144,7 @@ cd remoteData
 
 ### 4、将需要传入远程的文件放入文件夹中
 
-### 5、初始化本地git
+### 5、初始化本地 git
 
 ```git
  git init
@@ -150,13 +162,13 @@ git remote add origin https://gitee.com/xxxx/xxx.git
 git add .
 ```
 
-### 8、将需要传入远程的文件填写commit信息
+### 8、将需要传入远程的文件填写 commit 信息
 
 ```git
 git commit -m "代码提交"
 ```
 
-### 9、将需要传入远程的文件进行push
+### 9、将需要传入远程的文件进行 push
 
 ```git
 git push -u origin master
@@ -170,7 +182,7 @@ git commit -m""   //提交到本地仓库
 git push          //推送到远程
 ```
 
-## 三、Git将线上的同步到本地
+## 三、Git 将线上的同步到本地
 
 ### 1、本地新建一个文件夹
 
@@ -184,7 +196,7 @@ mkdir  remoteData
 cd remoteData
 ```
 
-### 3、初始化本地git
+### 3、初始化本地 git
 
 ```git
 git init
