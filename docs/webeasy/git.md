@@ -89,6 +89,20 @@ fetch = +refs/heads/*:refs/remotes/origin/*
 url = https://${user}:${password}@github.com/JonesXie/xxx.git
 ```
 
+#### 4、推送本地分支到远程分支
+
+> 1、远程先开好分支然后拉到本地
+> 2、本地先开好分支然后推送到远程
+
+```git
+// 案例一:检出远程的new_dev分支到本地
+git checkout -b new_dev origin/new_dev
+
+// 案例二:本地推送到远端分支
+git checkout -b new_dev    //创建并切换到分支new_dev
+git push origin new_dev:new_dev    //推送本地的new_dev(冒号前面的)分支到远程origin的new_dev(冒号后面的)分支(没有会自动创建)
+```
+
 ### 生成 SSH 密钥
 
 > 1、本地 SSH 密钥存在于**C:\Users\Jonesxie\.ssh**文件夹中  
