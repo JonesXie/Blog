@@ -1,4 +1,4 @@
-# vue实践技巧
+# vue 实践技巧
 
 ## @vue/cli 使用
 
@@ -23,52 +23,60 @@ vue ui
 ### 1、未使用懒加载
 
 ```js
-import HelloWorld from '@/components/HelloWorld'
+import HelloWorld from "@/components/HelloWorld";
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component:HelloWorld
+      path: "/",
+      name: "HelloWorld",
+      component: HelloWorld
     }
   ]
-})
+});
 ```
 
-### 2、使用ES中的`import`进行懒加载  **(推荐使用，也是最常用的)**
+### 2、使用 ES 中的`import`进行懒加载   **(推荐使用，也是最常用的)**
 
 ```js
 const HelloWorld = () => import("@/components/HelloWorld");
 export default new Router({
-  routes: [{
-    path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
-  }]
-})
+  routes: [
+    {
+      path: "/",
+      name: "HelloWorld",
+      component: HelloWorld
+    }
+  ]
+});
 
 /*或者*/
 
 export default new Router({
-  routes: [{
-    path: '/',
-    name: 'HelloWorld',
-    component: () => import("@/components/HelloWorld")
-  }]
-})
+  routes: [
+    {
+      path: "/",
+      name: "HelloWorld",
+      component: () => import("@/components/HelloWorld")
+    }
+  ]
+});
 ```
 
-### 3、使用VUE中的异步组件进行懒加载
+### 3、使用 VUE 中的异步组件进行懒加载
 
 ```js
 export default new Router({
-  routes: [{
-    path: '/',
-    name: 'HelloWorld',
-    component: resolve => { require(['@/components/HelloWorld'],resovle); }
-  }]
-})
+  routes: [
+    {
+      path: "/",
+      name: "HelloWorld",
+      component: resolve => {
+        require(["@/components/HelloWorld"], resovle);
+      }
+    }
+  ]
+});
 ```
 
 ## 自定义指令
@@ -79,25 +87,58 @@ export default new Router({
 
 ### 全局自定义指令
 
->在**main.js**中使用
+> 在**main.js**中使用
 
 ```js
-Vue.directive('focus',{
+Vue.directive("focus", {
   inserted: function(el) {
     el.focus();
   }
-})
+});
 ```
 
 ### 组件自定义指令
 
->在**组件**中使用
+> 在**组件**中使用
 
 ```js
 directives: {
   focus: {
     inserted: function(el) {
       el.focus();
+    }
+  }
+}
+```
+
+### 指令中使用`this`
+
+> 在`bind`函数中的第三个参数`vnode`代表当前的虚拟 dom，`vnode.context`指代当前上下文
+
+```js
+// 验证金额
+directives: {
+  vaildNum: {
+    // 当绑定元素插入到 DOM 中。
+    bind: function(el, binding, vnode) {
+      el.handler = function() {
+        if (vnode.context.canInput) {
+          const reg = /(^[1-9](\d+)?(\.\d{1,2})?$)|(^0$)|(^\d\.\d{1,2}$)/; //不可为负数，小数点2位
+          if (!reg.test(el.value)) {
+            // console.log(vnode.context);
+            vnode.context.$message.error("请输入正确金额数");
+            el.value = null;
+          } else if (el.value <= 0) {
+            vnode.context.$message.error("请输入大于零金额数");
+            el.value = null;
+          }
+        }
+      };
+      el.addEventListener("blur", el.handler);
+    },
+    //解除绑定
+    unbind: function(el) {
+      el.removeEventListener("blur", el.handler);
     }
   }
 }
@@ -141,16 +182,16 @@ Vue.directive('validtel', {
 
 ```
 
-## 滚动到指定id位置
+## 滚动到指定`id`位置
 
 ```js
 document.querySelector("#minSize").scrollIntoView(true);
 ```
 
->1、scrollIntoView()：h5标准，默认参数为`true`(顶部对齐),为`false`是底部对齐  
->2、querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
+> 1、scrollIntoView()：h5 标准，默认参数为`true`(顶部对齐),为`false`是底部对齐  
+> 2、querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
 
-## Axios请求参数
+## `Axios`请求参数
 
 ### 1、`get`,需使用 **params** 解析数据
 
@@ -159,11 +200,11 @@ axios.get('demo/url?id=132&name=xie')
 axios.get('demo/url', { params: updata })
 ```
 
-### 2、`delete`,和get是同一种方式
+### 2、`delete`,和 get 是同一种方式
 
 ```js
-axios.delete('/demo/url',{ data: updata })  //服务端使用body接收数据
-axios.delete('/demo/url',{ params: updata })  //服务端使用url接收数据
+axios.delete("/demo/url", { data: updata }); //服务端使用body接收数据
+axios.delete("/demo/url", { params: updata }); //服务端使用url接收数据
 ```
 
 ### 3、`post` / `put` / `patch`
@@ -174,10 +215,10 @@ axios.delete('/demo/url',{ params: updata })  //服务端使用url接收数据
 // 全局请求头:'Content-Type'= 'application/x-www-form-urlencoded'
 // request的Header:'Content-Type'= 'multipart/form-data'
 
-let formData=new FormData();
-formData.append('user',123456);
-formData.append('pass',12345678);
-axios.post("/demo/url",formData)
+let formData = new FormData();
+formData.append("user", 123456);
+formData.append("pass", 12345678);
+axios.post("/demo/url", formData);
 ```
 
 (2) 传参格式为 **query** 形式
@@ -187,37 +228,36 @@ axios.post("/demo/url",formData)
 // request的Header:'Content-Type'= 'application/x-www-form-urlencoded'
 
 // 使用qs.stringify
-axios.post('demo/url', qs.stringify(updata )) //使用qs进行编码
-
+axios.post("demo/url", qs.stringify(updata)); //使用qs进行编码
 ```
 
 (3) 传参格式为 **JSON**形式
 
->第一种情况：axios将JavaScript对象序列化为JSON
+> 第一种情况：axios 将 JavaScript 对象序列化为 JSON
 
 ```js
 // 全局请求头:'Content-Type'= 'application/x-www-form-urlencoded'
 // request的Header:'Content-Type'= 'application/json;charset=UTF-8' (请求头变了)
 
-let updata ={id:132,name:'xie'}
-axios.post("/demo/url",updata, {headers:{"Content-Type": "application/json;charset=utf-8"}})
+let updata = { id: 132, name: "xie" };
+axios.post("/demo/url", updata, { headers: { "Content-Type": "application/json;charset=utf-8" } });
 ```
 
->第二种情况：
+> 第二种情况：
 
 ```js
 // 全局请求头:'Content-Type'= 'application/json;charset=UTF-8' (全局请求头变了)
 // request的Header:'Content-Type'= 'application/json;charset=UTF-8'(请求头变了)
 
-let updata =JSON.stringify({id:132,name:'xie'})
-axios.post("/demo/url",updata, {headers:{"Content-Type": "application/json;charset=utf-8"}})
+let updata = JSON.stringify({ id: 132, name: "xie" });
+axios.post("/demo/url", updata, { headers: { "Content-Type": "application/json;charset=utf-8" } });
 ```
 
-## Render函数
+## `Render`函数
 
-### render定义
+### render 定义
 
->Render函数：render函数接收一个 `createElement` 方法作为第一个参数用来创建VNode（虚拟DMO）  
+> Render 函数：render 函数接收一个 `createElement` 方法作为第一个参数用来创建 VNode（虚拟 DMO）
 
 ```js
 render: function (createElement) {
@@ -228,9 +268,9 @@ render: function (createElement) {
 
 ### 参数解析
 
->参数1：必须，渲染的HTML标签。类型可以是字符串、对象或函数。比如”div”就是创建一个 `<div>`标签  
->参数2：可选，类型是对象。主要用于设置这个dom的一些样式、属性、传的组件的参数、绑定事件之类  
->参数3：可选，"文本节点"，类型是数组或字符串  
+> 参数 1：必须，渲染的 HTML 标签。类型可以是字符串、对象或函数。比如”div”就是创建一个  `<div>`标签  
+> 参数 2：可选，类型是对象。主要用于设置这个 dom 的一些样式、属性、传的组件的参数、绑定事件之类  
+> 参数 3：可选，"文本节点"，类型是数组或字符串
 
 ```js
 // 参数2选项
@@ -292,7 +332,7 @@ render: function (createElement) {
 
 ### 简写
 
->将 `h` 作为 createElement 的别名是 Vue 生态系统中的一个通用惯例。所以有了其他写法。
+> 将 `h` 作为 createElement 的别名是 Vue 生态系统中的一个通用惯例。所以有了其他写法。
 
 ```js
 ES5:
@@ -314,9 +354,9 @@ new Vue({
 
 ### 实践案例
 
-#### 一个render渲染内部多个子元素
+#### 一个 render 渲染内部多个子元素
 
->在第二个参数中写入一个数组，数组中可以用h再次创建 Vnode
+> 在第二个参数中写入一个数组，数组中可以用 h 再次创建 Vnode
 
 ```js
 render: h => {

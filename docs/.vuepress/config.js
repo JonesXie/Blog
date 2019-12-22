@@ -21,54 +21,67 @@ module.exports = {
       link: '/javascript/'
     }],
     sidebar: [{
-        title: 'WebEasy',
-        path: '/webeasy/',
-        children: [{
-            title: '常用JS方法',
-            path: '/webeasy/method.md'
-          },
-          {
-            title: '常用CSS技巧',
-            path: '/webeasy/css.md'
-          },
-          {
-            title: 'vue实践技巧',
-            path: '/webeasy/vue.md'
-          },
-          {
-            title: '常用正则',
-            path: '/webeasy/regular.md'
-          },
-          {
-            title: 'Git教程',
-            path: '/webeasy/git.md'
-          },
-          {
-            title: 'moment.js',
-            path: '/webeasy/moment.md'
-          },
-          {
-            title: '命名规范',
-            path: '/webeasy/namewrite.md'
-          },
-          {
-            title: 'vuepress搭建',
-            path: '/webeasy/vuepress.md'
-          },
-        ]
+      title: 'WebEasy',
+      path: '/webeasy/',
+      children: [{
+        title: '常用JS方法',
+        path: '/webeasy/method.md'
       },
       {
-        title: 'JavaScript',
-        path: '/javascript/',
-        children: [{
-          title: 'TypeScript',
-          path: '/javascript/typescript'
+        title: '常用CSS技巧',
+        path: '/webeasy/css.md'
+      },
+      {
+        title: 'vue实践技巧',
+        path: '/webeasy/vue.md'
+      },
+      {
+        title: '常用正则',
+        path: '/webeasy/regular.md'
+      },
+      {
+        title: 'Git教程',
+        path: '/webeasy/git.md'
+      },
+      {
+        title: 'moment.js',
+        path: '/webeasy/moment.md'
+      },
+      {
+        title: '命名规范',
+        path: '/webeasy/namewrite.md'
+      },
+      {
+        title: 'vuepress搭建',
+        path: '/webeasy/vuepress.md'
+      },
+      ]
+    },
+    {
+      title: 'JavaScript',
+      path: '/javascript/',
+      children: [{
+        title: 'TypeScript',
+        path: '/javascript/typescript'
+      }]
+    },
+    {
+      title: 'Webpack',
+      path: '/webpack/',
+      children: [
+        {
+          title: 'Webpack教程',
+          path: '/webpack/webpack'
+        },
+        {
+          title: 'Webpack插件',
+          path: '/webpack/plugins'
+        },
+        {
+          title: 'Webpack Loader',
+          path: '/webpack/loaders'
         }]
-      },
-      {
-        title: 'Webpack',
-        path: '/webpack/'
-      }
+    }
     ],
     smoothScroll: true,
     lastUpdated: '最后更新时间',
