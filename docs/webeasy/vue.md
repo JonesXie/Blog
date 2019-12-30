@@ -1,5 +1,7 @@
 # vue 实践技巧
 
+[[toc]]
+
 ## @vue/cli 使用
 
 1、安装`@vue/cli`
