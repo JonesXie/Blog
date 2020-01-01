@@ -255,4 +255,38 @@ var big = potatos.find(potato => {
 //{ id: '1003', weight: 120 }
 ```
 
-:point_right:1、返回第一个符合条件的对象
+:point_right:1、返回第一个符合条件的**对象**
+
+#### findIndex
+
+:tada:**返回第一个符合条件的索引号**
+
+:100:**useage**:
+
+```js
+// potatos 数组上面有
+
+var i = potatos.findIndex(potato => {
+  return potato.weight > 100;
+});
+//2
+```
+
+#### reduce
+
+:tada:**`Array.reduce()`接受两个参数：一个是对数组每个元素执行的`回调方法`，一个是`初始值`**
+
+:100:**useage**:
+
+```js
+var sum = weight.reduce((sum, w) => {
+  return w + sum;
+}, 0);
+//并不会改变原表格
+```
+
+reduce()方法接收一个回调函数作为第一个参数，回调函数又接受四个参数，分别是：  
+:point_right:1、previousValue =>初始值或上一次回调函数叠加的值；  
+:point_right:2、currentValue => 本次回调（循环）将要执行的值；  
+:point_right:3、index=>“currentValue”的索引值；  
+:point_right:4、arr => 数组本身；
