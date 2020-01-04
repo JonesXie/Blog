@@ -1,7 +1,15 @@
+const path = require("path");
 module.exports = {
   base: '/blog/',
   title: 'WEB前端开发',
   description: '前端开发中的每一点积累',
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": path.join(__dirname, "public", "assets")
+      }
+    }
+  },
   head: [
     ['link', {
       rel: 'shortcut icon',
@@ -25,6 +33,7 @@ module.exports = {
       title: 'WebEasy',
       path: '/webeasy/',
       sidebarDepth: 1,
+      collapsable: false,
       children: [
         {
           title: '实践笔记',
@@ -104,19 +113,12 @@ module.exports = {
     {
       title: 'Webpack',
       path: '/webpack/',
+      // collapsable: false,
       children: [
-        {
-          title: 'Webpack教程',
-          path: '/webpack/webpack'
-        },
-        {
-          title: 'Webpack插件',
-          path: '/webpack/plugins'
-        },
-        {
-          title: 'Webpack Loader',
-          path: '/webpack/loaders'
-        }]
+        ['/webpack/webpack', 'Webpack教程'],
+        ['/webpack/plugins', 'Webpack Plugins'],
+        ['/webpack/loaders', 'Webpack Loaders'],
+      ]
     }
     ],
     smoothScroll: true,
@@ -133,5 +135,17 @@ module.exports = {
     '/': {
       lang: 'zh-CN', // 将会被设置为 <html> 的 lang 属性
     },
-  }
+  },
+  plugins: [
+    ["@vuepress/back-to-top", true],
+    [
+      "@vuepress/plugin-medium-zoom",
+      {
+        options: {
+          margin: 24,
+          background: "white",
+          scrollOffset: 0
+        }
+      }
+    ],]
 }

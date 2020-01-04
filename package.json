@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/JonesXie/blog#readme",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.2.0",
+    "@vuepress/plugin-medium-zoom": "^1.2.0",
     "vuepress": "^1.2.0"
   }
 }

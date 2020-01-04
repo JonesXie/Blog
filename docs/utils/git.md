@@ -4,10 +4,7 @@
 
 **Git 掘金小册：[https://juejin.im/book/5a124b29f265da431d3c472e](https://juejin.im/book/5a124b29f265da431d3c472e)**
 
-![git](https://cdn.nlark.com/yuque/0/2019/png/358257/1577687909292-assets/web-upload/daadbfac-165c-4f50-857d-d305c0670216.png "git")
-::: tip
-[点击查看大图](https://cdn.nlark.com/yuque/0/2019/png/358257/1577687909292-assets/web-upload/daadbfac-165c-4f50-857d-d305c0670216.png)
-:::
+![git](@/git.png "git命令总结")
 
 ## Git 常用操作
 
