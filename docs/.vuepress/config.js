@@ -65,7 +65,7 @@ module.exports = {
       path: '/utils/',
       children: [
         {
-          title: 'Git教程',
+          title: 'Git常用命令',
           path: '/utils/git.md'
         },
         {
