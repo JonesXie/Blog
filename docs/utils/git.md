@@ -99,7 +99,7 @@ git checkout -b new_branch
 
 ### 同步远端分支
 
-> 1、远程先开好分支然后拉到本地
+> 1、远程先开好分支然后拉到本地  
 > 2、本地先开好分支然后推送到远程
 
 ```git
@@ -176,6 +176,72 @@ git tag -d <tag名>
 git push origin --d tag <tag名>
 ```
 
+## 常用错误处理
+
+### 修正 commit
+
+#### 修正上一个 commit
+
+> `amend`:'修正'，当 commit 添加上`--amend`,用这个新的 commit 把当前 commit 替换掉
+
+```git
+git commit --amend
+```
+
+#### 修正不是上一个 commit
+
+> rebase -i 是 rebase --interactive 的缩写形式，意为「交互式 rebase」  
+> [详细介绍](https://juejin.im/book/5a124b29f265da431d3c472e/section/5a1451dd5188253293142cd7)
+
+```git
+// 回退到倒数第二个
+git rebase -i HEAD^^
+```
+
+### 丢弃 commit
+
+#### 丢弃上一个 commit
+
+> 1、reset --hard :丢弃上一个 commit  
+> 2、reset 参数解析
+>
+> > a、reset --hard：重置工作目录，工作目录里的内容会被完全重置为和 `HEAD` 的新位置相同的内容  
+> > b、reset --soft：保留工作目录，保留工作目录和暂存区中的内容，并把重置 `HEAD` 所带来的新的差异放进暂存区  
+> > c、reset 不加参数：保留工作目录，并清空暂存区
+
+```git
+// 丢弃上一个commit
+git reset --hard HEAD^
+```
+
+#### 丢弃不是上一个 commit
+
+> 同样是使用 rebase: **git rebase -i HEAD^^**
+
+```git
+// 回退到倒数第二个
+git rebase -i HEAD^^
+```
+
+### 修改 push 后的代码
+
+#### 自己的分支
+
+> 对于自己能完全掌控的仓库，可以使用上面的方法,再强制推送
+
+```git
+// -f 表示强制推送
+git push origin branch1 -f
+```
+
+#### 协作的分支
+
+> 下面代码就会增加一条新的 commit，它的内容和倒数第二个 commit 是相反的，从而和倒数第二个 commit 相互抵消，达到撤销的效
+
+```git
+git revert HEAD^
+```
+
 ## 常用 Git 命令总结
 
 - `git config --global user.name "name"`  设置全局名字
@@ -190,7 +256,8 @@ git push origin --d tag <tag名>
 - `git diff`  查看文件修改的具体内容
 - `git log`  显示从最近到最远的提交历史
 - `git clone https://github.com/xxx/xxx.git dirName` 克隆仓库到本地 dirName 文件中
-- `git reset --hard + 版本号` 回溯版本，版本号在 commit 的时候与 master 跟随在一起
+- `git commit --amend` 将此次修改提交到上次 commit 中
+- `git reset --hard 版本号` 回溯版本，版本号在 commit 的时候与 master 跟随在一起
 - `git reflog` 显示命令历史
 - `git checkout --`   撤销命令，用版本库里的文件替换掉工作区的文件。
 - `git branch` 查看当前所有分支
@@ -222,6 +289,17 @@ git push origin --d tag <tag名>
 - `git add -f`   强制提交已忽略的的文件
 
 ## Git 特殊操作
+
+### 偏移符号
+
+> 1、`^`：在 commit 的后面加一个或多个 ^ 号，可以把 commit 往回偏移，偏移的数量是 ^ 的数量  
+> 2、`~`：在 commit 的后面加上 ~ 号和一个数，可以把 commit 往回偏移，偏移的数量是 ~ 号后面的数
+
+```git
+master^ 表示 master 指向的 commit 之前的那个 commit； HEAD^^ 表示 HEAD 所指向的 commit 往前数两个 commit
+
+HEAD~5 表示 HEAD 指向的 commit 往前数 5 个 commit。
+```
 
 ### 生成 SSH 密钥
 
