@@ -28,7 +28,6 @@ module.exports = {
     //   text: 'JS',
     //   link: '/javascript/'
     // }],
-    sidebarDepth: 2,
     sidebar: [{
       title: 'WebEasy',
       path: '/webeasy/',
@@ -85,6 +84,7 @@ module.exports = {
     {
       title: 'Web框架',
       path: '/webframe/',
+      sidebarDepth: 2,
       children: []
     },
     {

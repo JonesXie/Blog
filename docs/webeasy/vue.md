@@ -442,3 +442,251 @@ render: h => {
   }
 }
 ```
+
+## extend,mixins,extends,components,install
+
+### 1.Vue.extend
+
+> 1、使用 vue 构造器,创建一个子类,参数是包含组件选项的对象  
+> 2、是全局的
+
+```javascript
+// 创建构造器
+var Profile = Vue.extend({
+  template: "<p>{{extendData}}</br>实例传入的数据为:{{propsExtend}}</p>",
+  data: function() {
+    return {
+      extendData: "这是extend扩展的数据"
+    };
+  },
+  props: ["propsExtend"]
+});
+
+// 创建 Profile 实例，并挂载到一个元素上。可以通过propsData传参.
+new Profile({ propsData: { propsExtend: "我是实例传入的数据" } }).$mount("#app-extend");
+```
+
+> `$mount`:手动挂载到 el 中。 [官方解释](https://cn.vuejs.org/v2/api/#vm-mount)
+
+### 2.Vue.component
+
+> 1、全局注册组件，有两个参数  
+> 2、a:组件名，b:一个对象或 extend 构造器
+
+```javascript
+//1.创建组件构造器
+var obj = {
+  props: [],
+  template: "<div><p>{{extendData}}</p></div>",
+  data: function() {
+    return {
+      extendData: "这是Vue.component传入Vue.extend注册的组件"
+    };
+  }
+};
+var Profile = Vue.extend(obj); // extend构造
+
+//2.注册组件方法一:传入Vue.extend扩展过得构造器
+Vue.component("component-one", Profile);
+
+//2.注册组件方法二:直接传入
+Vue.component("component-two", obj);
+```
+
+### 3.mixins(混入)
+
+> 1、来分发 Vue 组件中的可复用功能  
+> 1、值可以是一个**混合对象数组**,混合实例可以包含选项,将在 extend 将相同的选项合并 mixins 代码  
+> 3、[官方文档](https://cn.vuejs.org/v2/guide/mixins.html)
+
+```javascript
+var mixin = {
+  data: { mixinData: "我是mixin的data" },
+  created: function() {
+    console.log("这是mixin的created");
+  },
+  methods: {
+    getSum: function() {
+      console.log("这是mixin的getSum里面的方法");
+    }
+  }
+};
+
+var mixinTwo = {
+  data: { mixinData: "我是mixinTwo的data" },
+  created: function() {
+    console.log("这是mixinTwo的created");
+  },
+  methods: {
+    getSum: function() {
+      console.log("这是mixinTwo的getSum里面的方法");
+    }
+  }
+};
+
+var vm = new Vue({
+  el: "#app",
+  data: { mixinData: "我是vue实例的data" },
+  created: function() {
+    console.log("这是vue实例的created");
+  },
+  methods: {
+    getSum: function() {
+      console.log("这是vue实例里面getSum的方法");
+    }
+  },
+  mixins: [mixin, mixinTwo]
+});
+
+//打印结果为:
+这是mixin的created;
+这是mixinTwo的created;
+这是vue实例的created;
+这是vue实例里面getSum的方法;
+```
+
+::: tip
+1.mixins 执行的顺序为 mixins>mixinTwo>created(vue 实例的生命周期钩子)  
+2.选项中数据属性如 data,methods,后面执行的回覆盖前面的,而生命周期钩子都会执行
+:::
+
+### 4.extends
+
+> 1、extends 用法和 mixins 很相似,只不过接收的参数是简单的选项对象或构造函数  
+> 2、extends 只能单次扩展一个组件
+
+```javascript
+var extend = {
+  data: { extendData: "我是extend的data" },
+  created: function() {
+    console.log("这是extend的created");
+  },
+  methods: {
+    getSum: function() {
+      console.log("这是extend的getSum里面的方法");
+    }
+  }
+};
+var mixin = {
+  data: { mixinData: "我是mixin的data" },
+  created: function() {
+    console.log("这是mixin的created");
+  },
+  methods: {
+    getSum: function() {
+      console.log("这是mixin的getSum里面的方法");
+    }
+  }
+};
+
+var vm = new Vue({
+  el: "#app",
+  data: { mixinData: "我是vue实例的data" },
+  created: function() {
+    console.log("这是vue实例的created");
+  },
+  methods: {
+    getSum: function() {
+      console.log("这是vue实例里面getSum的方法");
+    }
+  },
+  mixins: [mixin],
+  extends: extend
+});
+
+//打印结果
+这是extend的created;
+这是mixin的created;
+这是vue实例的created;
+这是vue实例里面getSum的方法;
+```
+
+::: tip
+1.extends 执行顺序为:extends>mixins>mixinTwo>created  
+2.定义的属性覆盖规则和 mixins 一致
+:::
+
+### 5.components
+
+> 1、注册一个局部组件
+
+```javascript
+//1.创建组件构造器
+var obj = {
+  props: [],
+  template: "<div><p>{{extendData}}</p></div>",
+  data: function() {
+    return {
+      extendData: "这是component局部注册的组件"
+    };
+  }
+};
+
+var Profile = Vue.extend(obj);
+
+//3.挂载
+new Vue({
+  el: "#app",
+  components: {
+    "component-one": Profile,
+    "component-two": obj
+  }
+});
+```
+
+### 6.install
+
+> 1、开发插件，第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象  
+> 2、**vue.use**方法可以调用 install 方法,会自动阻止多次注册相同插件  
+> 3、[插件](https://cn.vuejs.org/v2/guide/plugins.html)  [自定义指令](https://cn.vuejs.org/v2/guide/custom-directive.html)
+
+```javascript
+var MyPlugin = {};
+MyPlugin.install = function(Vue, options) {
+  // 2. 添加全局资源,第二个参数传一个值默认是update对应的值
+  Vue.directive("click", {
+    bind(el, binding, vnode, oldVnode) {
+      //做绑定的准备工作,添加时间监听
+      console.log("指令my-directive的bind执行啦");
+    },
+    inserted: function(el) {
+      //获取绑定的元素
+      console.log("指令my-directive的inserted执行啦");
+    },
+    update: function() {
+      //根据获得的新值执行对应的更新
+      //对于初始值也会调用一次
+      console.log("指令my-directive的update执行啦");
+    },
+    componentUpdated: function() {
+      console.log("指令my-directive的componentUpdated执行啦");
+    },
+    unbind: function() {
+      //做清理操作
+      //比如移除bind时绑定的事件监听器
+      console.log("指令my-directive的unbind执行啦");
+    }
+  });
+
+  // 3. 注入组件
+  Vue.mixin({
+    created: function() {
+      console.log("注入组件的created被调用啦");
+      console.log("options的值为", options);
+    }
+  });
+
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function(methodOptions) {
+    console.log("实例方法myMethod被调用啦");
+  };
+};
+
+//调用MyPlugin
+Vue.use(MyPlugin, { someOption: true });
+
+//3.挂载
+new Vue({
+  el: "#app"
+});
+```
