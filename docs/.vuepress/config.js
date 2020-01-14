@@ -21,13 +21,10 @@ module.exports = {
     // logo: "/logo.png",
     repo: 'https://github.com/JonesXie',
     repoLabel: 'GitHub',
-    // nav: [{
-    //   text: 'WebEasy',
-    //   link: '/webeasy/'
-    // }, {
-    //   text: 'JS',
-    //   link: '/javascript/'
-    // }],
+    nav: [{
+      text: 'CSSTricks',
+      link: 'https://jonesxie.gitee.io/css-tricks/'
+    }],
     sidebar: [{
       title: 'WebEasy',
       path: '/webeasy/',
