@@ -226,7 +226,7 @@ var result = [16, 17].some(item => {
 :100:**useage**:
 
 ```js
-var result = [16, 17].some(item => {
+var result = [16, 17].every(item => {
   return item > 16;
 });
 //false
