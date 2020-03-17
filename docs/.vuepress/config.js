@@ -82,7 +82,10 @@ module.exports = {
       title: 'Web框架',
       path: '/webframe/',
       sidebarDepth: 2,
-      children: []
+      children: [{
+        title: 'react基础',
+        path: '/webframe/react.md'
+      }]
     },
     {
       title: 'JavaScript',
