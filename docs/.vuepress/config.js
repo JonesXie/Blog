@@ -15,7 +15,16 @@ module.exports = {
       rel: 'shortcut icon',
       type: "image/x-icon",
       href: 'https://jonesxie.gitee.io/blog/favicon.ico'
-    }]
+    }],
+    ['script', {}, `
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?755218758b0bdcdb51201ed71eb251a0";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    `]
   ],
   themeConfig: {
     // logo: "/logo.png",
@@ -137,6 +146,7 @@ module.exports = {
     },
   },
   plugins: [
+    "@vuepress/last-updated",
     ["@vuepress/back-to-top", true],
     [
       "@vuepress/plugin-medium-zoom",
