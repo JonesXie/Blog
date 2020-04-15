@@ -4,9 +4,6 @@
 
 ```css
 @charset "utf-8";
-html a {
-  color: #333;
-}
 body,
 ul,
 ol,
@@ -34,6 +31,7 @@ xmp {
   margin: 0;
   padding: 0;
 }
+
 h1,
 h2,
 h3,
@@ -48,6 +46,7 @@ button,
 select {
   font-size: 100%;
 }
+
 h1,
 h2,
 h3,
@@ -57,6 +56,7 @@ h6 {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
     sans-serif;
 }
+
 h1,
 h2,
 h3,
@@ -67,6 +67,7 @@ b,
 strong {
   font-weight: normal;
 }
+
 address,
 cite,
 dfn,
@@ -76,24 +77,29 @@ optgroup,
 var {
   font-style: normal;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 caption,
 th {
   text-align: inherit;
 }
+
 ul,
 ol,
 li,
 menu {
   list-style: none;
 }
+
 fieldset,
 img {
   border: 0;
 }
+
 img,
 object,
 textarea,
@@ -101,6 +107,7 @@ button,
 select {
   vertical-align: middle;
 }
+
 article,
 aside,
 footer,
@@ -114,6 +121,7 @@ details,
 menu {
   display: block;
 }
+
 audio,
 canvas,
 video {
@@ -121,24 +129,28 @@ video {
   *display: inline;
   *zoom: 1;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
   content: "\0020";
 }
+
 textarea {
   overflow: auto;
   resize: vertical;
 }
+
 input,
 textarea,
 button,
 select,
 a {
   outline: 0 none;
-  border: 0;
+  border: none;
 }
+
 button::-moz-focus-inner,
 input::-moz-focus-inner {
   padding: 0;
@@ -153,9 +165,11 @@ input::-ms-input-placeholder {
 input::-moz-input-placeholder {
   color: #dcdfe6;
 }
+
 mark {
   background-color: transparent;
 }
+
 a,
 ins,
 s,
@@ -163,10 +177,12 @@ u,
 del {
   text-decoration: none;
 }
+
 sup,
 sub {
   vertical-align: baseline;
 }
+
 html,
 body {
   width: 100%;
@@ -177,13 +193,13 @@ body {
     sans-serif;
   line-height: 1;
   -webkit-text-size-adjust: none;
-  font-size: 14px;
 }
 ```
 
 ## public.scss
 
-```css
+```scss
+// $color: #e3f2ff;
 $color: #f8f8f8;
 $colorRed: #fc414a;
 
@@ -228,6 +244,32 @@ $colorRed: #fc414a;
 
 .cursor {
   cursor: pointer;
+}
+
+.clear {
+  &::before,
+  &::after {
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+  }
+}
+// 动画
+.an-scale {
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+.an-scale:hover {
+  transform: scale(1.3);
+}
+.an-up {
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+.an-up:hover {
+  transform: translate3d(0, -10px, 0);
 }
 
 //按钮
@@ -299,5 +341,29 @@ $colorRed: #fc414a;
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
+}
+```
+
+## scroll-bar
+
+```scss
+.scroll-bar {
+  overflow: auto;
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #fff;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #bbb;
+    transition: all 0.5s;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
+  }
 }
 ```

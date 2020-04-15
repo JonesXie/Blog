@@ -449,6 +449,103 @@ location / {
 }
 ```
 
+## 开启 gzip
+
+> 通过 **ngx_http_gzip_module** 模块拦截请求，并对需要做 gzip 的类型做 gzip 压缩，该模块是默认基础的，**不需要重新编译**，直接开启即可。
+
+```nginx
+server{
+    #开启和关闭gzip模式
+    gzip on|off;
+
+    #gizp压缩起点，文件大于1k才进行压缩
+    gzip_min_length 1k;
+
+    # gzip 压缩级别，1-9，数字越大压缩的越好，也越占用CPU时间
+    gzip_comp_level 1;
+
+    # 进行压缩的文件类型。
+    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript ;
+
+    #nginx对于静态文件的处理模块，开启后会寻找以.gz结尾的文件，直接返回，不会占用cpu进行压缩，如果找不到则不进行压缩
+    gzip_static on|off
+
+    # 是否在http header中添加Vary: Accept-Encoding，建议开启
+    gzip_vary on;
+    # 设置压缩所需要的缓冲区大小，以4k为单位，如果文件为7k则申请2*4k的缓冲区
+    gzip_buffers 2 4k;
+    # 设置gzip压缩针对的HTTP协议版本
+    gzip_http_version 1.1;
+}
+```
+
+## 负载均衡
+
+### 轮询（默认）
+
+```nginx
+// nginx.config
+upstream backserver {
+    server 192.168.0.1;
+    server 192.168.0.2;
+}
+```
+
+### 权重 weight
+
+> 指定不同 ip 的权重，权重与访问比成正相关，权重越高，访问越大，适用于不同性能的机器
+
+```nginx
+// nginx.config
+upstream backserver {
+    server 192.168.0.1 weight=2;
+    server 192.168.0.2 weight=8;
+}
+```
+
+### 响应时间来分配
+
+> 公平竞争，谁相应快，谁处理，不过这种方式需要依赖到第三方插件 nginx-upstream-fair，需要先安装
+
+```nginx
+// nginx.config
+upstream backserver {
+    server 192.168.0.1;
+    server 192.168.0.2;
+    fair;
+}
+server {
+    listen 80;
+    server_name localhost;
+    location / {
+      proxy_pass  http://backserver;
+    }
+}
+```
+
+### 健康检查
+
+> Nginx 自带 ngx_http_upstream_module（健康检测模块）本质上服务器心跳的检查，通过定期轮询向集群里的服务器发送健康检查请求,来检查集群中是否有服务器处于异常状态
+
+如果检测出其中某台服务器异常,那么在通过客户端请求 nginx 反向代理进来的都不会被发送到该服务器上（直至下次轮训健康检查正常）
+
+```nginx
+upstream backserver{
+    server 192.168.0.1  max_fails=1 fail_timeout=40s;
+    server 192.168.0.2  max_fails=1 fail_timeout=40s;
+}
+server {
+    listen 80;
+    server_name localhost;
+    location / {
+      proxy_pass http://backend;
+    }
+}
+```
+
+> 1、fail_timeout : 设定服务器被认为不可用的时间段以及统计失败尝试次数的时间段，默认为 10s  
+> 2、max_fails : 设定 Nginx 与服务器通信的尝试失败的次数，默认为：1 次
+
 ## 参考资料
 
 ### [Nginx Windows 详细安装部署教程](https://www.cnblogs.com/taiyonghai/p/9402734.html)
