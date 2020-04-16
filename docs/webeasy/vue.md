@@ -32,9 +32,9 @@ export default new Router({
     {
       path: "/",
       name: "HelloWorld",
-      component: HelloWorld
-    }
-  ]
+      component: HelloWorld,
+    },
+  ],
 });
 ```
 
@@ -47,9 +47,9 @@ export default new Router({
     {
       path: "/",
       name: "HelloWorld",
-      component: HelloWorld
-    }
-  ]
+      component: HelloWorld,
+    },
+  ],
 });
 
 /*或者*/
@@ -59,9 +59,9 @@ export default new Router({
     {
       path: "/",
       name: "HelloWorld",
-      component: () => import("@/components/HelloWorld")
-    }
-  ]
+      component: () => import("@/components/HelloWorld"),
+    },
+  ],
 });
 ```
 
@@ -73,11 +73,11 @@ export default new Router({
     {
       path: "/",
       name: "HelloWorld",
-      component: resolve => {
+      component: (resolve) => {
         require(["@/components/HelloWorld"], resovle);
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 ```
 
@@ -95,7 +95,7 @@ export default new Router({
 Vue.directive("focus", {
   inserted: function(el) {
     el.focus();
-  }
+  },
 });
 ```
 
@@ -207,7 +207,7 @@ module.exports = {
         // @/ 是 src/ 的别名
         // 所以这里假设你有 `src/variables.sass` 这个文件
         // 注意：在 sass-loader v7 中，这个选项名是 "data"
-        prependData: `@import "~@/variables.sass"`
+        prependData: `@import "~@/variables.sass"`,
       },
       // 默认情况下 `sass` 选项会同时对 `sass` 和 `scss` 语法同时生效
       // 因为 `scss` 语法在内部也是由 sass-loader 处理的
@@ -215,18 +215,18 @@ module.exports = {
       // `scss` 语法会要求语句结尾必须有分号，`sass` 则要求必须没有分号
       // 在这种情况下，我们可以使用 `scss` 选项，对 `scss` 语法进行单独配置
       scss: {
-        prependData: `@import "~@/variables.scss";`
+        prependData: `@import "~@/variables.scss";`,
       },
       // 给 less-loader 传递 Less.js 相关选项
       less: {
         // http://lesscss.org/usage/#less-options-strict-units `Global Variables`
         // `primary` is global variables fields name
         globalVars: {
-          primary: "#fff"
-        }
-      }
-    }
-  }
+          primary: "#fff",
+        },
+      },
+    },
+  },
 };
 ```
 
@@ -443,12 +443,13 @@ render: h => {
 }
 ```
 
-## extend,mixins,extends,components,install
+## 可复用性&组合
 
 ### 1.Vue.extend
 
-> 1、使用 vue 构造器,创建一个子类,参数是包含组件选项的对象  
-> 2、是全局的
+> 1、[官方解释](https://cn.vuejs.org/v2/api/#Vue-extend)  
+> 1、使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象  
+> 2、是全局 API
 
 ```javascript
 // 创建构造器
@@ -456,10 +457,10 @@ var Profile = Vue.extend({
   template: "<p>{{extendData}}</br>实例传入的数据为:{{propsExtend}}</p>",
   data: function() {
     return {
-      extendData: "这是extend扩展的数据"
+      extendData: "这是extend扩展的数据",
     };
   },
-  props: ["propsExtend"]
+  props: ["propsExtend"],
 });
 
 // 创建 Profile 实例，并挂载到一个元素上。可以通过propsData传参.
@@ -480,9 +481,9 @@ var obj = {
   template: "<div><p>{{extendData}}</p></div>",
   data: function() {
     return {
-      extendData: "这是Vue.component传入Vue.extend注册的组件"
+      extendData: "这是Vue.component传入Vue.extend注册的组件",
     };
-  }
+  },
 };
 var Profile = Vue.extend(obj); // extend构造
 
@@ -508,8 +509,8 @@ var mixin = {
   methods: {
     getSum: function() {
       console.log("这是mixin的getSum里面的方法");
-    }
-  }
+    },
+  },
 };
 
 var mixinTwo = {
@@ -520,8 +521,8 @@ var mixinTwo = {
   methods: {
     getSum: function() {
       console.log("这是mixinTwo的getSum里面的方法");
-    }
-  }
+    },
+  },
 };
 
 var vm = new Vue({
@@ -533,9 +534,9 @@ var vm = new Vue({
   methods: {
     getSum: function() {
       console.log("这是vue实例里面getSum的方法");
-    }
+    },
   },
-  mixins: [mixin, mixinTwo]
+  mixins: [mixin, mixinTwo],
 });
 
 //打印结果为:
@@ -564,8 +565,8 @@ var extend = {
   methods: {
     getSum: function() {
       console.log("这是extend的getSum里面的方法");
-    }
-  }
+    },
+  },
 };
 var mixin = {
   data: { mixinData: "我是mixin的data" },
@@ -575,8 +576,8 @@ var mixin = {
   methods: {
     getSum: function() {
       console.log("这是mixin的getSum里面的方法");
-    }
-  }
+    },
+  },
 };
 
 var vm = new Vue({
@@ -588,10 +589,10 @@ var vm = new Vue({
   methods: {
     getSum: function() {
       console.log("这是vue实例里面getSum的方法");
-    }
+    },
   },
   mixins: [mixin],
-  extends: extend
+  extends: extend,
 });
 
 //打印结果
@@ -617,9 +618,9 @@ var obj = {
   template: "<div><p>{{extendData}}</p></div>",
   data: function() {
     return {
-      extendData: "这是component局部注册的组件"
+      extendData: "这是component局部注册的组件",
     };
-  }
+  },
 };
 
 var Profile = Vue.extend(obj);
@@ -629,8 +630,8 @@ new Vue({
   el: "#app",
   components: {
     "component-one": Profile,
-    "component-two": obj
-  }
+    "component-two": obj,
+  },
 });
 ```
 
@@ -665,7 +666,7 @@ MyPlugin.install = function(Vue, options) {
       //做清理操作
       //比如移除bind时绑定的事件监听器
       console.log("指令my-directive的unbind执行啦");
-    }
+    },
   });
 
   // 3. 注入组件
@@ -673,7 +674,7 @@ MyPlugin.install = function(Vue, options) {
     created: function() {
       console.log("注入组件的created被调用啦");
       console.log("options的值为", options);
-    }
+    },
   });
 
   // 4. 添加实例方法
@@ -687,6 +688,95 @@ Vue.use(MyPlugin, { someOption: true });
 
 //3.挂载
 new Vue({
-  el: "#app"
+  el: "#app",
 });
+```
+
+### 案例：全局自定义`v-loading`
+
+```javascript
+// directive.js
+import Vue from "vue";
+//TrinityRingsSpinner.vue 为loading动画组件
+import Loading from "./components/TrinityRingsSpinner.vue";
+const Mask = Vue.extend(Loading); //
+const loadingDirective = {};
+loadingDirective.install = (Vue) => {
+  Vue.directive("loading", {
+    bind: function(el, binding) {
+      const mask = new Mask({
+        el: document.createElement("div"),
+        data: {},
+      });
+      el.instance = mask;
+      el.mask = mask.$el;
+      el.maskStyle = {};
+      binding.value && toggleLoading(el, binding);
+    },
+    update: function(el, binding) {
+      if (binding.oldValue !== binding.value) {
+        toggleLoading(el, binding);
+      }
+    },
+    unbind: function(el) {
+      el.instance && el.instance.$destroy();
+    },
+  });
+  const toggleLoading = (el, binding) => {
+    if (binding.value) {
+      el.classList.add("position-relative");
+      Vue.nextTick(() => {
+        insertDom(el, el, binding);
+      });
+    } else {
+      el.classList.remove("position-relative");
+      el.instance.visible = false;
+    }
+  };
+  // 插入Loading
+  const insertDom = (parent, el) => {
+    parent.appendChild(el.mask);
+    el.instance.visible = true;
+  };
+};
+export default loadingDirective;
+```
+
+```javascript
+// main.js
+import loading from "./directive.js";
+Vue.use(loading);
+```
+
+```vue
+<template>
+  <div class="trinity-rings-spinner" v-show="visible">
+    <div class="circle-wrap" :style="circleStyle">
+      <div class="circle circle1" :style="ring1Style"></div>
+      <div class="circle circle2" :style="ring2Style"></div>
+      <div class="circle circle3" :style="ring3Style"></div>
+    </div>
+    <div class="loading-txt" :style="txtStyle">加载中...</div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "TrinityRingsSpinner",
+  data() {
+    return {
+      visible: true, //控制显示
+      size: 120,
+      color: "#ff1d5e", //颜色
+    };
+  },
+  computed: {
+    // 动态计算转圈
+  },
+};
+</script>
+
+<style scoped>
+/* 省略 */
+</style>
 ```

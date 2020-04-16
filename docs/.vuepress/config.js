@@ -42,6 +42,10 @@ module.exports = {
         text: "CSSTricks",
         link: "https://jonesxie.gitee.io/css-tricks/",
       },
+      {
+        text: "Gitee",
+        link: "https://gitee.com/Jonesxie",
+      },
     ],
     sidebar: [
       {
@@ -52,7 +56,7 @@ module.exports = {
         title: "WebEasy",
         path: "/webeasy/",
         sidebarDepth: 1,
-        collapsable: false,
+        // collapsable: false,
         children: [
           {
             title: "实践笔记",
@@ -121,6 +125,10 @@ module.exports = {
           {
             title: "TypeScript",
             path: "/javascript/typescript",
+          },
+          {
+            title: "原型与原型链",
+            path: "/javascript/prototype",
           },
         ],
       },
