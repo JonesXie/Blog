@@ -75,7 +75,7 @@ _----现代软件架构的复杂性需要协同开发完成，如何高效地协
 
 正例：
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -99,12 +99,10 @@ _----现代软件架构的复杂性需要协同开发完成，如何高效地协
 
 在每一个块状元素，列表元素和表格元素后，加上一对 HTML 注释。注释格式
 
-<!-- 英文 中文 start >
-
-<!-- 英文 中文 end >
-正例：
-
-```
+```html
+<!-- 英文 中文 start -->
+something
+<!-- 英文 中文 end -->
 <body>
   <!-- header 头部 start -->
   <header>
@@ -125,14 +123,14 @@ HTML5 中新增很多语义化标签，所以优先使用语义化标签，避�
 
 正例
 
-```
+```html
 <header></header>
 <footer></footer>
 ```
 
 反例
 
-```
+```html
 <div>
   <p></p>
 </div>
@@ -141,10 +139,6 @@ HTML5 中新增很多语义化标签，所以优先使用语义化标签，避�
 #### 1.2.5 引号
 
 使用双引号(" ") 而不是单引号(’ ') 。
-
-正例： ``
-
-反例： ``
 
 ### (三) CSS 规范
 
@@ -158,7 +152,7 @@ ID 和 class 的名称总是使用可以反应元素目的和用途的名称，�
 
 不推荐：
 
-```
+```css
 .fw-800 {
   font-weight: 800;
 }
@@ -170,7 +164,7 @@ ID 和 class 的名称总是使用可以反应元素目的和用途的名称，�
 
 推荐:
 
-```
+```css
 .heavy {
   font-weight: 800;
 }
@@ -189,7 +183,7 @@ ID 和 class 的名称总是使用可以反应元素目的和用途的名称，�
 
 不推荐:
 
-```
+```css
 .content .title {
   font-size: 2rem;
 }
@@ -197,7 +191,7 @@ ID 和 class 的名称总是使用可以反应元素目的和用途的名称，�
 
 推荐:
 
-```
+```css
 .content > .title {
   font-size: 2rem;
 }
@@ -207,7 +201,7 @@ ID 和 class 的名称总是使用可以反应元素目的和用途的名称，�
 
 不推荐：
 
-```
+```css
 border-top-style: none;
 font-family: palatino, georgia, serif;
 font-size: 100%;
@@ -220,7 +214,7 @@ padding-top: 0;
 
 推荐：
 
-```
+```css
 border-top: 0;
 font: 100%/1.6 palatino, georgia, serif;
 padding: 0 1em 2em;
@@ -231,19 +225,17 @@ padding: 0 1em 2em;
 不推荐：
 
 ```
-button{
-  width:100px;height:50px;color:#fff;background:#00a0e9;
-}
+button {width: 100px;height: 50px;color: #fff;background: #00a0e9;}
 ```
 
 推荐：
 
-```
-button{
-  width:100px;
-  height:50px;
-  color:#fff;
-  background:#00a0e9;
+```css
+button {
+  width: 100px;
+  height: 50px;
+  color: #fff;
+  background: #00a0e9;
 }
 ```
 
@@ -251,8 +243,8 @@ button{
 
 不推荐：
 
-```
-div{
+```css
+div {
   padding-bottom: 0px;
   margin: 0em;
 }
@@ -260,8 +252,8 @@ div{
 
 推荐：
 
-```
-div{
+```css
+div {
   padding-bottom: 0;
   margin: 0;
 }
@@ -271,8 +263,8 @@ div{
 
 不推荐：
 
-```
-#header{
+```css
+#header {
   padding-bottom: 0px;
   margin: 0em;
 }
@@ -280,8 +272,8 @@ div{
 
 推荐：
 
-```
-.header{
+```css
+.header {
   padding-bottom: 0px;
   margin: 0em;
 }
@@ -297,11 +289,11 @@ div{
 
 ##### 2)按以下顺序组织
 
-1、@import;
-2、变量声明;
+1、@import;  
+2、变量声明;  
 3、样式声明;
 
-```
+```css
 @import "mixins/size.less";
 
 @default-text-color: #333;
@@ -319,11 +311,11 @@ div{
 
 不推荐：
 
-```
-.main{
-  .title{
-    .name{
-       color:#fff
+```css
+.main {
+  .title {
+    .name {
+      color: #fff;
     }
   }
 }
@@ -331,11 +323,11 @@ div{
 
 推荐：
 
-```
-.main-title{
-   .name{
-      color:#fff
-   }
+```css
+.main-title {
+  .name {
+    color: #fff;
+  }
 }
 ```
 
@@ -351,75 +343,75 @@ div{
 
 正例： `localValue / getHttpMessage() / inputUserId`
 
-\***\*其中 method 方法命名必须是 动词 或者 动词+名词 形式\*\***
+**其中 method 方法命名必须是 动词 或者 动词+名词 形式**
 
 正例：`saveShopCarData /openShopCarInfoDialog`
 
 反例：`save / open / show / go`
 
-\***\*特此说明，增删查改，详情统一使用如下 5 个单词，不得使用其他（目的是为了统一各个端）\*\***
+**特此说明，增删查改，详情统一使用如下 5 个单词，不得使用其他（目的是为了统一各个端）**
 
-```
+```js
 add / update / delete / detail / get
 ```
 
 **附： 函数方法常用的动词:**
 
-```
-get 获取/set 设置,
-add 增加/remove 删除
-create 创建/destory 移除
-start 启动/stop 停止
-open 打开/close 关闭,
-read 读取/write 写入
-load 载入/save 保存,
-create 创建/destroy 销毁
-begin 开始/end 结束,
-backup 备份/restore 恢复
-import 导入/export 导出,
-split 分割/merge 合并
-inject 注入/extract 提取,
-attach 附着/detach 脱离
-bind 绑定/separate 分离,
-view 查看/browse 浏览
-edit 编辑/modify 修改,
-select 选取/mark 标记
-copy 复制/paste 粘贴,
-undo 撤销/redo 重做
-insert 插入/delete 移除,
-add 加入/append 添加
-clean 清理/clear 清除,
-index 索引/sort 排序
-find 查找/search 搜索,
-increase 增加/decrease 减少
-play 播放/pause 暂停,
-launch 启动/run 运行
-compile 编译/execute 执行,
-debug 调试/trace 跟踪
-observe 观察/listen 监听,
-build 构建/publish 发布
-input 输入/output 输出,
-encode 编码/decode 解码
-encrypt 加密/decrypt 解密,
-compress 压缩/decompress 解压缩
-pack 打包/unpack 解包,
-parse 解析/emit 生成
-connect 连接/disconnect 断开,
-send 发送/receive 接收
-download 下载/upload 上传,
-refresh 刷新/synchronize 同步
-update 更新/revert 复原,
-lock 锁定/unlock 解锁
-check out 签出/check in 签入,
-submit 提交/commit 交付
-push 推/pull 拉,
-expand 展开/collapse 折叠
-begin 起始/end 结束,
-start 开始/finish 完成
-enter 进入/exit 退出,
-abort 放弃/quit 离开
-obsolete 废弃/depreciate 废旧,
-collect 收集/aggregate 聚集
+```js
+get 获取        /     set 设置,
+add 增加        /     remove 删除
+create 创建     /     destory 移除
+start 启动      /     stop 停止
+open 打开       /     close 关闭
+read 读取       /     write  写入
+load 载入       /     save 保存
+create 创建     /     destroy 销毁
+begin 开始      /     end 结束
+backup 备份     /     restore 恢复
+split 分割      /     merge 合并
+inject 注入     /     extract 提取
+attach 附着     /     detach 脱离
+bind 绑定       /     separate 分离
+view 查看       /     browse 浏览
+edit 编辑       /     modify 修改
+select 选取     /     mark 标记
+copy 复制       /     paste 粘贴
+undo 撤销       /     redo 重做
+insert 插入     /     delete 移除
+add 加入        /     append 添加
+clean 清理      /     clear 清除
+index 索引      /     sort 排序
+find 查找       /     search 搜索
+increase 增加   /     decrease 减少
+play 播放       /     pause 暂停
+launch 启动     /     run 运行
+compile 编译    /     execute 执行
+debug 调试      /     trace 跟踪
+observe 观察    /     listen 监听
+build 构建      /     publish 发布
+input 输入      /     output 输出
+encode 编码     /     decode 解码
+encrypt 加密    /     decrypt 解密
+compress 压缩   /     decompress 解压缩
+pack 打包       /     unpack 解包
+parse 解析      /     emit 生成
+connect 连接    /     disconnect 断开
+send 发送       /     receive 接收
+download 下载   /     upload 上传
+refresh 刷新    /     synchronize 同步
+update 更新     /     revert 复原
+lock 锁定       /     unlock 解锁
+check out 签出  /     check in 签入
+submit 提交     /     commit 交付
+push 推         /     pull 拉
+expand 展开     /     collapse 折叠
+begin 起始      /     end 结束
+start 开始      /     finish 完成
+enter 进入      /     exit 退出
+abort 放弃      /     quit 离开
+obsolete 废弃   /     depreciate 废旧
+collect 收集    /     aggregate 聚集
+import 导入     /     export 导出
 ```
 
 ##### 3) 常量命名全部大写，单词间用下划线隔开，力求语义表达完整清楚，不要嫌名字长。
@@ -434,7 +426,7 @@ collect 收集/aggregate 聚集
 
 正例：
 
-```
+```js
 if (x < y) {
   x += 10;
 } else {
@@ -452,15 +444,15 @@ if (x < y) {
 
 正例:
 
-```
-let str = 'foo';
+```js
+let str = "foo";
 let testDiv = '<div id="test"></div>';
 ```
 
 反例:
 
-```
-let str = 'foo';
+```js
+let str = "foo";
 let testDiv = "<div id='test'></div>";
 ```
 
@@ -476,17 +468,17 @@ let testDiv = "<div id='test'></div>";
 
 正例：
 
-```
+```js
 var user = {
   age: 0,
   name: 1,
-  city: 3
+  city: 3,
 };
 ```
 
 反例：
 
-```
+```js
 var user = new Object();
 user.age = 0;
 user.name = 0;
@@ -505,7 +497,7 @@ user.city = 0;
 
 正例：
 
-```
+```js
 if (condition) {
   doSomething();
 }
@@ -513,7 +505,7 @@ if (condition) {
 
 反例：
 
-```
+```js
 if (condition) doSomething();
 ```
 
@@ -523,7 +515,7 @@ if (condition) doSomething();
 
 正例：
 
-```
+```js
 if (typeof person === 'undefined') {
     ...
 }
@@ -531,7 +523,7 @@ if (typeof person === 'undefined') {
 
 反例：
 
-```
+```js
 if (person === undefined) {
     ...
 }
@@ -566,38 +558,35 @@ vue 项目规范以 Vue 官方规范 （https://cn.vuejs.org/v2/style-guide/） 
 
 正例：
 
-```
-export default {
-  name: 'TodoItem'
-  // ...
-};
+```js
+export default { name: 'TodoItem' // ... };
 ```
 
 反例：
 
-```
+```js
 export default {
-  name: 'Todo',
+  name: "Todo",
   // ...
-}
+};
 export default {
-  name: 'todo-item',
+  name: "todo-item",
   // ...
-}
+};
 ```
 
 ##### 2) 组件文件名为 pascal-case 格式
 
 正例：
 
-```
+```js
 components/
 |- my-component.vue
 ```
 
 反例：
 
-```
+```js
 components/
 |- myComponent.vue
 |- MyComponent.vue
@@ -607,7 +596,7 @@ components/
 
 正例：
 
-```
+```js
 components/
 |- base-button.vue
 |- base-table.vue
@@ -616,7 +605,7 @@ components/
 
 反例：
 
-```
+```js
 components/
 |- MyButton.vue
 |- VueTable.vue
@@ -627,7 +616,7 @@ components/
 
 正例：
 
-```
+```js
 components/
 |- todo-list.vue
 |- todo-list-item.vue
@@ -637,7 +626,7 @@ components/
 
 反例：
 
-```
+```js
 components/
 |- TodoList.vue
 |- TodoItem.vue
@@ -649,7 +638,7 @@ components/
 
 正例：
 
-```
+```js
 <!-- 在单文件组件、字符串模板和 JSX 中 -->
 <MyComponent />
 <Row><table :column="data"/></Row>
@@ -657,7 +646,7 @@ components/
 
 反例：
 
-```
+```js
 <my-component /> <row><table :column="data"/></row>
 ```
 
@@ -667,24 +656,24 @@ components/
 
 正例：
 
-```
+```js
 export default {
-  data () {
+  data() {
     return {
-      name: 'jack'
-    }
-  }
-}
+      name: "jack",
+    };
+  },
+};
 ```
 
 反例：
 
-```
+```js
 export default {
   data: {
-    name: 'jack'
-  }
-}
+    name: "jack",
+  },
+};
 ```
 
 ##### 7) Prop 定义应该尽量详细
@@ -697,7 +686,7 @@ export default {
 
 正例：
 
-```
+```js
  props: {
   // 组件状态，用于控制组件的颜色
    status: {
@@ -723,7 +712,7 @@ export default {
 
 正例：
 
-```
+```js
 <template>
   <button class="btn btn-close">X</button>
 </template>
@@ -738,7 +727,7 @@ export default {
 
 反例：
 
-```
+```js
 <template>
   <button class="btn btn-close">X</button>
 </template>
@@ -754,17 +743,14 @@ export default {
 
 正例：
 
-```
-<MyComponent foo="a" bar="b" baz="c"
-    foo="a" bar="b" baz="c"
-    foo="a" bar="b" baz="c"
- />
+```js
+<MyComponent foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" />
 ```
 
 反例：
 
-```
-<MyComponent foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" foo="a" bar="b" baz="c"/>
+```js
+<MyComponent foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" foo="a" bar="b" baz="c" />
 ```
 
 #### 2.1.2. 模板中使用简单的表达式
@@ -773,7 +759,7 @@ export default {
 
 正例：
 
-```
+```js
 <template>
   <p>{{ normalizedFullName }}</p>
 </template>
@@ -790,7 +776,7 @@ computed: {
 
 反例：
 
-```
+```js
 <template>
   <p>
        {{
@@ -808,7 +794,7 @@ computed: {
 
 正例：
 
-```
+```js
 <input
   @input="onInput"
   @focus="onFocus"
@@ -817,7 +803,7 @@ computed: {
 
 反例：
 
-```
+```js
 <input
   v-on:input="onInput"
   @focus="onFocus"
@@ -830,7 +816,7 @@ computed: {
 
 正例：
 
-```
+```js
 <template>...</template>
 <script>...</script>
 <style>...</style>
@@ -838,7 +824,7 @@ computed: {
 
 反例：
 
-```
+```js
 <template>...</template>
 <style>...</style>
 <script>...</script>
@@ -862,22 +848,22 @@ components > props > data > computed > watch > filter > 钩子函数（钩子函
 
 正例：
 
-```
-let id = ' 123';
-this.$router.push({ name: 'userCenter', query: { id: id } });
+```js
+let id = " 123";
+this.$router.push({ name: "userCenter", query: { id: id } });
 ```
 
 ##### 2) 使用路由懒加载（延迟加载）机制
 
-```
-    {
-        path: '/uploadAttachment',
-        name: 'uploadAttachment',
-        meta: {
-          title: '上传附件'
-        },
-        component: () => import('@/view/components/uploadAttachment/index.vue')
-      },
+```js
+{
+  path: '/uploadAttachment',
+  name: 'uploadAttachment',
+  meta: {
+    title: '上传附件'
+  },
+  component: () => import('@/view/components/uploadAttachment/index.vue')
+},
 ```
 
 ##### 3) router 中的命名规范
@@ -886,44 +872,43 @@ path、childrenPoints 命名规范采用`kebab-case`命名规范（尽量 vue �
 
 name 命名规范采用`KebabCase`命名规范且和 component 组件名保持一致！（因为要保持 keep-alive 特性，keep-alive 按照 component 的 name 进行缓存，所以两者必须高度保持一致）
 
-```
+```js
 // 动态加载
 export const reload = [
   {
-    path: '/reload',
-    name: 'reload',
+    path: "/reload",
+    name: "reload",
     component: Main,
     meta: {
-      title: '动态加载',
-      icon: 'icon iconfont'
+      title: "动态加载",
+      icon: "icon iconfont",
     },
 
     children: [
       {
-        path: '/reload/smart-reload-list',
-        name: 'SmartReloadList',
+        path: "/reload/smart-reload-list",
+        name: "SmartReloadList",
         meta: {
-          title: 'SmartReload',
+          title: "SmartReload",
           childrenPoints: [
             {
-              title: '查询',
-              name: 'smart-reload-search'
+              title: "查询",
+              name: "smart-reload-search",
             },
             {
-              title: '执行reload',
-              name: 'smart-reload-update'
+              title: "执行reload",
+              name: "smart-reload-update",
             },
             {
-              title: '查看执行结果',
-              name: 'smart-reload-result'
-            }
-          ]
+              title: "查看执行结果",
+              name: "smart-reload-result",
+            },
+          ],
         },
-        component: () =>
-          import('@/views/reload/smart-reload/smart-reload-list.vue')
-      }
-    ]
-  }
+        component: () => import("@/views/reload/smart-reload/smart-reload-list.vue"),
+      },
+    ],
+  },
 ];
 ```
 
@@ -931,13 +916,9 @@ export const reload = [
 
 path 除了采用`kebab-case`命名规范以外，必须以 / 开头，即使是 children 里的 path 也要以 / 开头。如下示例
 
--
+经常有这样的场景：某个页面有问题，要立刻找到这个 vue 文件，如果不用以/开头，path 为 parent 和 children 组成的，可能经常需要在 router 文件里搜索多次才能找到，而如果以/开头，则能立刻搜索到对应的组件
 
-目的：
-
-经常有这样的场景：某个页面有问题，要立刻找到这个 vue 文件，如果不用以/开头，path 为 parent 和 children 组成的，可能经常需要在 router 文件里搜索多次才能找到，而如果以/开头，则能立刻搜索到对应的组件 \*
-
-```
+```js
 {
     path: '/file',
     name: 'File',
@@ -982,7 +963,7 @@ vue 项目中的所有命名一定要与后端命名统一。
 
 目录名按照上面的命名规范，其中 components 组件用大写驼峰，其余除 components 组件目录外的所有目录均使用 kebab-case 命名。
 
-```
+```js
 src                               源码目录
 |-- api                              所有api接口
 |-- assets                           静态资源，images, icons, styles等
@@ -1019,7 +1000,7 @@ src                               源码目录
 
 后端 url： EmployeeController.java
 
-```
+```js
 /employee/add
 /employee/delete/{id}
 /employee/update
@@ -1027,26 +1008,26 @@ src                               源码目录
 
 前端： employee.js
 
-```
-  // 添加员工
-  addEmployee: (data) => {
-    return postAxios('/employee/add', data)
-  },
-  // 更新员工信息
-  updateEmployee: (data) => {
-    return postAxios('/employee/update', data)
-  },
-    // 删除员工
-  deleteEmployee: (employeeId) => {
-    return postAxios('/employee/delete/' + employeeId)
-   },
+```js
+// 添加员工
+addEmployee: (data) => {
+  return postAxios('/employee/add', data)
+},
+// 更新员工信息
+updateEmployee: (data) => {
+  return postAxios('/employee/update', data)
+},
+  // 删除员工
+deleteEmployee: (employeeId) => {
+  return postAxios('/employee/delete/' + employeeId)
+},
 ```
 
 ##### 2) assets 目录
 
 assets 为静态资源，里面存放 images, styles, icons 等静态资源，静态资源命名格式为 kebab-case
 
-```
+```js
 |assets
 |-- icons
 |-- images
@@ -1059,7 +1040,7 @@ assets 为静态资源，里面存放 images, styles, icons 等静态资源，�
 
 此目录应按照组件进行目录划分，目录命名为 KebabCase，组件命名规则也为 KebabCase
 
-```
+```js
 |components
 |-- error-log
 |   |-- index.vue
@@ -1076,7 +1057,7 @@ assets 为静态资源，里面存放 images, styles, icons 等静态资源，�
 
 目录结构：
 
-```
+```js
 |constants
 |-- index.js
 |-- role.js
@@ -1085,44 +1066,44 @@ assets 为静态资源，里面存放 images, styles, icons 等静态资源，�
 
 例子： employee.js
 
-```
+```js
 export const EMPLOYEE_STATUS = {
   NORMAL: {
     value: 1,
-    desc: '正常'
+    desc: "正常",
   },
   DISABLED: {
     value: 1,
-    desc: '禁用'
+    desc: "禁用",
   },
   DELETED: {
     value: 2,
-    desc: '已删除'
-  }
+    desc: "已删除",
+  },
 };
 
 export const EMPLOYEE_ACCOUNT_TYPE = {
   QQ: {
     value: 1,
-    desc: 'QQ登录'
+    desc: "QQ登录",
   },
   WECHAT: {
     value: 2,
-    desc: '微信登录'
+    desc: "微信登录",
   },
   DINGDING: {
     value: 3,
-    desc: '钉钉登录'
+    desc: "钉钉登录",
   },
   USERNAME: {
     value: 4,
-    desc: '用户名密码登录'
-  }
+    desc: "用户名密码登录",
+  },
 };
 
 export default {
   EMPLOYEE_STATUS,
-  EMPLOYEE_ACCOUNT_TYPE
+  EMPLOYEE_ACCOUNT_TYPE,
 };
 ```
 
@@ -1139,7 +1120,7 @@ store 按照业务进行拆分不同的 js 文件
 - 命名要与后端、router、api 等保持一致
 - components 中组件要使用 PascalCase 规则
 
-```
+```js
 |-- views                            视图目录
 |   |-- role                             role模块名
 |   |   |-- role-list.vue                    role列表页面
