@@ -64,7 +64,7 @@ module.exports = {
           },
           {
             title: "常用JS方法",
-            path: "/webeasy/method.md",
+            path: "/webeasy/javascript.md",
           },
           {
             title: "常用CSS技巧",

@@ -1,5 +1,48 @@
 # CSS 常用技巧
 
+## css 中宽高
+
+### offsetHeight & offsetWidth
+
+> `HTMLElement.offsetHeight`
+
+::: tip
+:white_check_mark: 只读  
+:white_check_mark: 返回元素的布局高度(layout height)  
+:white_check_mark: 值 = contentH + paddingH + borderH  
+:white_check_mark: display:none 时，值为 0  
+:white_check_mark: 不包含伪类(::before ::after)的高度  
+:white_check_mark: 值的数据类型为数字  
+:::
+
+### clientHeight & clientWidth
+
+> `Element.clientHeight`
+
+::: tip
+:white_check_mark: 只读  
+:white_check_mark: 返回元素的内部高度  
+:white_check_mark: 一个元素没有 css 或者这个元素是内联元素时，返回 **0**  
+:white_check_mark: 值 = contentH + paddingH - scrollbarH (if present)  
+:::
+
+### scrollHeight & scrollWidth
+
+::: tip
+:white_check_mark: 只读  
+:white_check_mark: 返回元素的高度，包括不可见的溢出部分  
+:white_check_mark: 包含伪类的高度(::after,::before 等)  
+:white_check_mark: 如果没有滚动条的话，和 clientHeight 相等  
+:::
+
+### offsetLeft & offsetTop
+
+::: tip
+:white_check_mark: 只读  
+:white_check_mark: 对于块状元素，offsetLeft 和 offsetTop 描述的是当前元素的 border 外侧 距 offsetParent 的 border 内侧的距离，和 scroll 无关  
+:white_check_mark: 对于内联元素，offsetLeft 和 offsetTop 描述的是当前元素的 border 外侧 距 offsetParent 的 border 外侧的距离，和 scroll 无关  
+:::
+
 ## reset.css
 
 ```css
@@ -344,7 +387,7 @@ $colorRed: #fc414a;
 }
 ```
 
-## scroll-bar
+## scroll-bar 滚动条
 
 ```scss
 .scroll-bar {
