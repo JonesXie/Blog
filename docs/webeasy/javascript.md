@@ -352,7 +352,7 @@ export function getQueryString(name) {
 
 ```js
 export function compareArr(arra, arrb) {
-  let temp = false;
+  let temp = true;
   arra.length == arrb.length &&
     arra.forEach((v) => {
       !arrb.includes(v) && (temp = false);
@@ -586,7 +586,7 @@ export function trim(str) {
 
 // 比较两个数组内的值是否相同 1.一维数组，2.不在乎顺序
 export function compareArr(arra, arrb) {
-  let temp = false;
+  let temp = true;
   arra.length == arrb.length &&
     arra.forEach((v) => {
       !arrb.includes(v) && (temp = false);
