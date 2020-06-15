@@ -4,7 +4,20 @@
 
 ## 常用配置
 
-> 配置 SPA+SSL
+> 启动
+
+```nginx
+方法一：
+/usr/local/nginx/sbin/nginx
+
+方法二:
+//进入nginx目录
+cd /usr/local/nginx/sbin
+//执行启动命令
+./nginx
+```
+
+> 配置 SPA+SSL+gzip
 
 ```nginx
 user  root;
@@ -16,13 +29,11 @@ events {
 
 
 http {
-    include       mime.types;
     include       proxy.conf;
     default_type  application/octet-stream;
     sendfile        on;
     #tcp_nopush     on;
 
-    #keepalive_timeout  0;
     keepalive_timeout  65;
 
     #gzip  on;
@@ -33,14 +44,13 @@ http {
         rewrite ^/(.*)$ "https://mall.1qishun.com/$1" permanent;
     }
 
-        # HTTPS server
-    #
+    # HTTPS server
     server {
         listen       443 ssl;
         server_name  mall.1qishun.com;
 
-        ssl_certificate      ssl/web/mallpc/3182454_mall.1qishun.com.pem;
-        ssl_certificate_key  ssl/web/mallpc/3182454_mall.1qishun.com.key;
+       	ssl_certificate      ssl/mallpc/3182454_mall.1qishun.com.pem;
+	    ssl_certificate_key  ssl/mallpc/3182454_mall.1qishun.com.key;
 
         ssl_session_cache    shared:SSL:1m;
         ssl_session_timeout  5m;
@@ -48,8 +58,16 @@ http {
         ssl_ciphers  HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers  on;
 
+        gzip on;
+        gzip_static on;
+        gzip_comp_level 6;
+        gzip_buffers 4 16k;
+        gzip_min_length 1k;
+        gzip_types text/plain application/x-javascript text/css application/xml text/javascript;
+        gzip_disable "MSIE [1-6]\.";
+
         location / {
-            root   /var/www/mallPC/;
+            root   /www/mallpc/;
             try_files $uri $uri/ /index.html;
             index  index.html index.htm;
         }
@@ -63,36 +81,54 @@ http {
 
 #### 1、安装环境
 
-> 在安装 nginx 前首先要确认系统中安装：`gcc`、`pcre-devel`、`zlib-devel`、`openssl-devel`
+> 在安装 nginx 前首先要确认系统中安装：`gcc`、`pcre-devel`、`zlib-devel`、`openssl-devel`  
+> 1、`gcc` 可以通过光盘直接选择安装  
+> 2、`pcre-devel` 为了使 nginx 支持 HTTP Rewrite 模块  
+> 3、`zlib-devel`、`openssl-devel` 可以通过光盘直接选择安装，https 时使用
 
 ```nginx
 //一键安装上面四个依赖
-yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
+yum -y install gcc pcre-devel zlib zlib-devel openssl openssl-devel
 ```
 
 #### 2、下载并解压压缩包
 
+> 可以通过图形工具将下载的包放入安装目录中
+
 ```nginx
-//创建一个文件夹
+//进入安装目录
 cd /usr/local
-mkdir nginx
-cd nginx
-//下载tar包
-wget http://nginx.org/download/nginx-1.16.1.tar.gz
-tar -xvf nginx-1.16.1.tar.gz
+//下载tar包，并解压
+wget http://nginx.org/download/nginx-1.18.0.tar.gz
+tar -xvf nginx-1.18.0.tar.gz
 ```
 
 #### 3、安装 nginx
 
+1、进入解压后的 nginx 目录
+
 ```nginx
-//进入nginx目录
-cd /usr/local/nginx
-//执行命令
-./configure
-//执行make命令
-make
-//执行make install命令
-make install
+cd /usr/local/nginx-1.18.0
+```
+
+2、执行 config 命令
+
+> 1、`--with-http_ssl_module` 添加 `https` 支持  
+> 2、`--with-http_gzip_static_module` 添加 `gzip_static` 支持  
+> 3、`--prefix=/usr/local/nginx` 安装目录（可以不用）
+
+```nginx
+./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_gzip_static_module
+```
+
+3、安装
+
+> 1、`./configure` 是用来检测你的安装平台的目标特征的。一般用来生成**Makefile**  
+> 2、`make` 是用来编译的，它从 Makefile 中读取指令，然后编译。  
+> 3、`make install`是用来安装的，它也从 Makefile 中读取指令，安装到指定的位置。**会覆盖安装**
+
+```nginx
+make && sudo make install
 ```
 
 #### 4、启动 nginx
@@ -458,24 +494,63 @@ server{
     #开启和关闭gzip模式
     gzip on|off;
 
+    #nginx对于静态文件的处理模块，开启后会寻找以.gz结尾的文件，直接返回，不会占用cpu进行压缩，如果找不到则不进行压缩
+    gzip_static on|off;
+
     #gizp压缩起点，文件大于1k才进行压缩
     gzip_min_length 1k;
 
     # gzip 压缩级别，1-9，数字越大压缩的越好，也越占用CPU时间
     gzip_comp_level 1;
 
-    # 进行压缩的文件类型。
+    # 进行压缩的文件类型,对特定的MIME类型生效,其中'text/html’被系统强制启用
     gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript ;
-
-    #nginx对于静态文件的处理模块，开启后会寻找以.gz结尾的文件，直接返回，不会占用cpu进行压缩，如果找不到则不进行压缩
-    gzip_static on|off
 
     # 是否在http header中添加Vary: Accept-Encoding，建议开启
     gzip_vary on;
+
     # 设置压缩所需要的缓冲区大小，以4k为单位，如果文件为7k则申请2*4k的缓冲区
     gzip_buffers 2 4k;
+
     # 设置gzip压缩针对的HTTP协议版本
     gzip_http_version 1.1;
+
+    # IE6对Gzip不友好，对Gzip（可以通过该指令对一些特定的User-Agent不使用压缩功能）
+    gzip_disable "MSIE [1-6]\.";
+}
+
+```
+
+### 案例
+
+```nginx
+server {
+    listen       443 ssl;
+    server_name  mall.1qishun.com;
+
+    ssl_certificate      ssl/mallpc/3182454_mall.1qishun.com.pem;
+    ssl_certificate_key  ssl/mallpc/3182454_mall.1qishun.com.key;
+
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+
+    gzip on;
+    #需要安装 --with-http_gzip_static_module参数
+    gzip_static on;
+    gzip_comp_level 6;
+    gzip_buffers 4 16k;
+    gzip_min_length 1k;
+    gzip_types text/plain application/x-javascript text/css application/xml text/javascript;
+    gzip_disable "MSIE [1-6]\.";
+
+    location / {
+        root   /www/mallpc/;
+        try_files $uri $uri/ /index.html;
+        index  index.html index.htm;
+    }
 }
 ```
 
