@@ -150,7 +150,7 @@ server {
 }
 ```
 
-## 一、安装 nginx
+## 安装 nginx
 
 ### 在 Linux 中安装
 
