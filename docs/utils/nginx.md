@@ -8,16 +8,16 @@
 
 ```nginx
 方法一：
-/usr/local/nginx/sbin/nginx
-
-方法二:
 //进入nginx目录
 cd /usr/local/nginx/sbin
 //执行启动命令
 ./nginx
+
+方法二:
+/usr/local/nginx/sbin/nginx
 ```
 
-> 配置 SPA+SSL+gzip
+> 配置 SPA+SSL+Gzip
 
 ```nginx
 user  root;
@@ -27,9 +27,8 @@ events {
     worker_connections  1024;
 }
 
-
 http {
-    include       proxy.conf;
+    include       mime.types;
     default_type  application/octet-stream;
     sendfile        on;
     #tcp_nopush     on;
@@ -71,6 +70,82 @@ http {
             try_files $uri $uri/ /index.html;
             index  index.html index.htm;
         }
+    }
+}
+```
+
+> 配置请求代理
+
+- `include`添加`proxy.conf`文件
+
+```nginx
+// nginx.conf
+http {
+    include       mime.types;
+    include       proxy.conf;
+    default_type  application/octet-stream;
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  mall.1qishun.com;
+        location / {
+            root   /www/mallpc/;
+            try_files $uri $uri/ /index.html;
+            index  index.html index.htm;
+        }
+    }
+}
+
+// proxy.conf
+server {
+    listen       80;
+    server_name  open.1qishun.com;
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
+server {
+    listen       443 ssl;
+    server_name  open.1qishun.com;
+    ssl_certificate      ssl/open/3176740_open.1qishun.com.pem;
+    ssl_certificate_key  ssl/open/3176740_open.1qishun.com.key;
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+    location / {
+        proxy_pass http://47.93.99.888:8848;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-Ip $remote_addr;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_redirect off;
+    }
+}
+
+server {
+    listen       80;
+    listen       443 ssl;
+    server_name  appapi.1qishun.com;
+    ssl_certificate      ssl/appapi/2998339_appapi.1qishun.com.pem;
+    ssl_certificate_key  ssl/appapi/2998339_appapi.1qishun.com.key;
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+    location / {
+        proxy_pass http://47.93.99.888:8805;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-Ip $remote_addr;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_redirect off;
     }
 }
 ```
@@ -165,7 +240,7 @@ cd /usr/local/nginx/sbin
 start nginx
 ```
 
-## 二、基础命令
+## 基础命令
 
 ### 启动命令
 
@@ -203,9 +278,7 @@ killall nginx
 nginx -s reload
 ```
 
-## 三、基础配置
-
-### `nginx.conf` 文件解读
+## `nginx.conf` 文件解读
 
 > nginx 主要模块配置
 
@@ -370,7 +443,7 @@ http {
 }
 ```
 
-### 访问权限设置
+## 访问权限设置
 
 #### 1、基础权限设置
 
@@ -381,7 +454,7 @@ location / {
 }
 ```
 
-#### 2、指令优先级
+### 2、指令优先级
 
 > 在同一个块下的两个权限指令，先出现的设置会覆盖后出现的设置（也就是谁先触发，谁起作用）
 
@@ -392,7 +465,7 @@ location / {
 }
 ```
 
-#### 3、复杂访问控制权限匹配
+### 3、复杂访问控制权限匹配
 
 > `=`号代表精确匹配，使用了`=`后是根据其后的模式进行精确匹配
 
@@ -407,7 +480,7 @@ location =/admin{
 }
 ```
 
-#### 4、使用正则表达式设置访问权限
+### 4、使用正则表达式设置访问权限
 
 ```nginx
 //禁止访问php结尾的文件
@@ -416,7 +489,7 @@ location ~\.php$ {
 }
 ```
 
-### 反向代理
+## 反向代理
 
 > 客户端请求发到代理服务器，代理服务器再把请求发送到自己设置好的内部服务器上
 
@@ -455,7 +528,7 @@ server{
 }
 ```
 
-### 解决跨域
+## 解决跨域
 
 > 主域名: mysite.com  
 > 请求连接: `http://mysite.com/apis/getPCBannerList.html`
