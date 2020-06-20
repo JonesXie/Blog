@@ -89,16 +89,20 @@ module.exports = {
         path: "/utils/",
         children: [
           {
+            title: "nginx基础",
+            path: "/utils/nginx.md",
+          },
+          {
             title: "Git常用命令",
             path: "/utils/git.md",
           },
           {
-            title: "moment.js",
-            path: "/utils/moment.md",
+            title: "npm&yarn",
+            path: "/utils/npmyarn.md",
           },
           {
-            title: "nginx基础",
-            path: "/utils/nginx.md",
+            title: "moment.js",
+            path: "/utils/moment.md",
           },
           {
             title: "vuepress搭建",

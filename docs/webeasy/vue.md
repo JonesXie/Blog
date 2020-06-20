@@ -184,6 +184,15 @@ Vue.directive('validtel', {
 
 ```
 
+## 重置 data
+
+> 将 vue 组件中的 data，重置为初始化状态  
+> 不能直接赋值
+
+```js
+Object.assign(this.$data, this.$options.data());
+```
+
 ## 滚动到指定`id`位置
 
 ```js

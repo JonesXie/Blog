@@ -2,26 +2,6 @@
 
 [[toc]]
 
-## nvm 镜像
-
-> 使用淘宝镜像。在 nvm 安装路径中可以编辑 setting.txt 文件
-
-原本：
-
-```txt
-root: D:\nvm
-path: D:\nodejs
-```
-
-添加淘宝镜像
-
-```txt
-root: D:\nvm
-path: D:\nodejs
-node_mirror: https://npm.taobao.org/mirrors/node/
-npm_mirror: https://npm.taobao.org/mirrors/npm/
-```
-
 ## H5 和 app 通信
 
 > 1、`callAndroid`/`callIOS`为 app 端约定好的函数名  
