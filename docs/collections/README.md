@@ -24,3 +24,5 @@
 - [ES6/ES7/ES8/ES9 资料整理](https://juejin.im/post/5c02b106f265da61764aa0c1)
 
 ## 优质文章
+
+- [ECMAScript2015~2020 语法全解析](http://es.xiecheng.live/introduction/preface.html)
