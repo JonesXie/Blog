@@ -1,5 +1,13 @@
 # 常用 JS 方法
 
+## ES 基础知识
+
+**[ECMAScript2015~2020 语法全解析](http://es.xiecheng.live/introduction/preface.html)**
+
+![git](@/es6.png "es6语法")
+
+![git](@/es7-es11.png "es7-es11语法")
+
 ## JS 中的循环
 
 ### 无回调函数
@@ -200,285 +208,9 @@ reduce()方法接收一个回调函数作为第一个参数，回调函数又接
 :point_right:3、index=>“currentValue”的索引值；  
 :point_right:4、arr => 数组本身；
 
-## 空值验证
+## 常用方法合集
 
-```js
-export function notNull(val) {
-  let temp = true;
-  ([undefined, null, ""].includes(val) || JSON.stringify(val) === "{}") && (temp = false);
-  return temp;
-}
-```
-
-## 时间转化
-
-建议使用 moment.js 或者 day.js
-
-> 1、momen.js 中文:[http://momentjs.cn/](http://momentjs.cn/)  
-> 2、day.js:[https://github.com/iamkun/dayjs](https://github.com/iamkun/dayjs)
-
-```js
-export function getTime(val) {
-  let now = new Date();
-  val && (now = new Date(val));
-  let year = now.getFullYear(),
-    month = now.getMonth() + 1,
-    date = now.getDate(),
-    hour = now.getHours(),
-    minute = now.getMinutes(),
-    second = now.getSeconds();
-  function add0(m) {
-    return m < 10 ? "0" + m : m;
-  }
-  return year + "-" + add0(month) + "-" + add0(date) + " " + add0(hour) + ":" + add0(minute) + ":" + add0(second);
-}
-```
-
-## 隐藏电话
-
-```js
-export function hideTel(val) {
-  let arr = val.split("");
-  if (arr.length === 11) {
-    return `${arr[0]}${arr[1]}${arr[2]}****${arr[7]}${arr[8]}${arr[9]}${arr[10]}`;
-  }
-  return false;
-}
-```
-
-## 深度拷贝
-
-```js
-export function deepClone(obj) {
-  let _obj = JSON.stringify(obj),
-    objClone = JSON.parse(_obj);
-  return objClone;
-}
-```
-
-## 复制指定文字到剪切板
-
-```js
-export function copyText(text) {
-  if (document.execCommand("Copy")) {
-    //创建input
-    var inputZ = document.createElement("input");
-    //添加Id,用于后续操作
-    inputZ.setAttribute("id", "inputCopy");
-    //获取传入的值
-    inputZ.value = text;
-    //创建的input添加到body
-    document.body.appendChild(inputZ);
-    //选中input中的值(使用前面的Id)
-    document.getElementById("inputCopy").select();
-    //把值复制下来
-    document.execCommand("Copy");
-    //删除添加的input
-    document.body.removeChild(inputZ);
-  } else {
-    // 复制失败
-    alert("复制失败");
-  }
-}
-```
-
-## 去除字符串的空格
-
-```js
-export function trim(str) {
-  return str.replace(/\s|\xA0/g, "");
-}
-```
-
-## 验证手机号
-
-```js
-export function validTel(rule, value, callback) {
-  const reg = /^1[3-9]\d{9}$/;
-  reg.test(value) ? callback("success") : callback(new Error("请输入正确手机号码"));
-}
-```
-
-## 验证身份证号
-
-```js
-export function checkID(rule, IDNumber, callback) {
-  let reg15 = /^\d{8}(0\d|11|12)([0-2]\d|30|31)\d{3}$/; //15位
-  let reg18 = /^\d{6}(18|19|20)\d{2}(0\d|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$/; //18位
-  //判断15位
-  if (reg15.test(IDNumber)) {
-    callback("success");
-  }
-  //判断第18位校验值
-  if (reg18.test(IDNumber)) {
-    let IDArr = IDNumber.split("");
-    let factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
-    let parity = [1, 0, "X", 9, 8, 7, 6, 5, 4, 3, 2];
-    let code = IDNumber.substring(17);
-    let sum = 0;
-    for (let i = 0; i < 17; i++) {
-      sum += IDArr[i] * factor[i];
-    }
-    if (parity[sum % 11] == code.toUpperCase()) {
-      callback("success");
-    } else {
-      callback(new Error("非法身份证号，请仔细检查！"));
-    }
-  } else {
-    callback(new Error("非法身份证号，请仔细检查！"));
-  }
-}
-```
-
-## 获取 url 中参数
-
-> 根据 **name** 获取到 url 中对应的 query 参数
-
-```js
-export function getQueryString(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  var r = window.location.search.substr(1).match(reg);
-  if (r != null) {
-    return unescape(r[2]);
-  }
-  return null;
-}
-```
-
-## 比较数组内值是否相同
-
-> 1、判断数组内的值相等，**不论顺序**  
-> 2、必须是一维数组
-
-```js
-export function compareArr(arra, arrb) {
-  let temp = true;
-  arra.length == arrb.length &&
-    arra.forEach((v) => {
-      !arrb.includes(v) && (temp = false);
-    });
-  return temp;
-}
-```
-
-## 防抖
-
-> 1、搜索框/滚动条 短时间内大量触发同一事件，只会执行一次函数  
-> 2、实现原理:设置一个定时器，约定在 xx 毫秒后再触发事件处理，每次触发事件都会重新设置计时器，直到 xx 毫秒内无第二次操作
-
-```js
-export function debounce(func, wait) {
-  let timeout = null;
-  return function() {
-    let context = this;
-    let args = arguments;
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(context, args);
-    }, wait);
-  };
-}
-```
-
-## 节流
-
-> 1、每隔一段时间就执行一次  
-> 2、设置一个定时器，约定 xx 毫秒后执行事件，如果时间到了，那么执行函数并重置定时器
-
-```js
-export function throttle(func, wait) {
-  let timeout = null;
-  return function() {
-    let context = this;
-    let args = arguments;
-    if (!timeout) {
-      timeout = setTimeout(() => {
-        timeout = null;
-        func.apply(context, args);
-      }, wait);
-    }
-  };
-}
-```
-
-## 验证微信内浏览器
-
-```js
-export function isWXNav() {
-  let ua = navigator.userAgent.toLowerCase();
-  return ua.match(/MicroMessenger/i) == "micromessenger";
-}
-```
-
-## 验证 IOS 平台
-
-```js
-export function isIOS() {
-  let Nav = window.navigator.userAgent.toLowerCase();
-  // let isAndroid = `${Nav}`.includes("android");
-  return `${Nav}`.includes("iphone");
-}
-```
-
-## h5-andriod 软键盘兼容
-
-> 我们在 app 布局中会有个固定的底部。安卓中，输入弹窗出来，会将解压 absolute 和 fixed 定位的元素。导致可视区域变小，布局错乱。
-
-```js
-export function compatibleInput() {
-  if (isIOS()) return;
-  const originalHeight = document.body.clientHeight || document.documentElement.clientHeight; // 记录原有的视口高度
-  window.onresize = function() {
-    var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    if (resizeHeight < originalHeight) {
-      document.body.style.height = originalHeight + "px"; // 恢复内容区域高度
-      // document.getElementById("app").style.height = originalHeight + "px"; // 恢复内容区域高度
-    }
-  };
-}
-```
-
-## h5 键盘回落
-
-> 键盘聚焦时，页面被顶起来，键盘失焦时，将页面滚动回原本的地方
-
-```js
-export function inputDown() {
-  window.scrollTo(0, Math.max(document.body.clientHeight, document.documentElement.clientHeight));
-}
-```
-
-## 动态设置标签 icon 图标
-
-```js
-export function setIcon(url) {
-  let link = document.createElement("link");
-  link.type = "image/x-icon";
-  link.rel = "shortcut icon";
-  link.href = url;
-  document.getElementsByTagName("head")[0].appendChild(link);
-}
-```
-
-## h5 添加 console
-
-> 移动端调试时，添加控制台
-
-```js
-export function addConsole() {
-  let vConsole = document.createElement("script");
-  vConsole.type = "text/javascript";
-  vConsole.src = "https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js";
-  process.env.NODE_ENV === "development" &&
-    document.body.appendChild(vConsole) &&
-    (vConsole.onload = function() {
-      // eslint-disable-next-line
-      new VConsole();
-    });
-}
-```
-
-## 完整的**methods.js**
+> 完整的**methods.js**
 
 ```js
 // 空值验证
@@ -569,6 +301,24 @@ export function checkID(rule, IDNumber, callback) {
   }
 }
 
+// 获取url全部参数，返回一个对象
+export function getAllQuery() {
+  let url = decodeURI(window.location.href);
+  let temp1 = url.split("?");
+  let keyValue = temp1.length > 1 ? temp1[1].split("&") : [];
+  let obj = {};
+  keyValue.forEach((v) => {
+    let temp2 = v.split("=");
+    obj[temp2[0]] = temp2[1];
+  });
+  return obj;
+}
+
+// 返回当前时间戳
+export function getExpireTime() {
+  return new Date().getTime();
+}
+
 // 根据name获取到url中对应的query参数
 export function getQueryString(name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -587,7 +337,7 @@ export function trim(str) {
 // 比较两个数组内的值是否相同 1.一维数组，2.不在乎顺序
 export function compareArr(arra, arrb) {
   let temp = true;
-  arra.length == arrb.length &&
+  arra.length === arrb.length &&
     arra.forEach((v) => {
       !arrb.includes(v) && (temp = false);
     });
@@ -596,23 +346,30 @@ export function compareArr(arra, arrb) {
 
 // 防抖 --搜索框/滚动条  短时间内大量触发同一事件，只会执行一次函数
 // 实现原理:设置一个定时器，约定在xx毫秒后再触发事件处理，每次触发事件都会重新设置计时器，直到xx毫秒内无第二次操作
-export function debounce(func, wait) {
+export function debounce(func, wait, ...rest) {
   let timeout = null;
-  return function() {
+  return function () {
     let context = this;
-    let args = arguments;
+    let args = Array.from(arguments);
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
-      func.apply(context, args);
+      func.apply(context, [...args, ...rest]);
     }, wait);
   };
+}
+let debounceTimeout = null;
+export function debounceParams(func, wait, ...rest) {
+  if (debounceTimeout) clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(() => {
+    func(...rest);
+  }, wait);
 }
 
 // 节流 每隔一段时间就执行一次
 //设置一个定时器，约定xx毫秒后执行事件，如果时间到了，那么执行函数并重置定时器
 export function throttle(func, wait) {
   let timeout = null;
-  return function() {
+  return function () {
     let context = this;
     let args = arguments;
     if (!timeout) {
@@ -622,6 +379,14 @@ export function throttle(func, wait) {
       }, wait);
     }
   };
+}
+let throttleTimeout = null;
+export function throttleParams(func, wait, ...rest) {
+  if (!throttleTimeout) {
+    throttleTimeout = setTimeout(() => {
+      func(...rest);
+    }, wait);
+  }
 }
 
 // 验证微信内浏览器
@@ -641,7 +406,7 @@ export function isIOS() {
 export function compatibleInput() {
   if (isIOS()) return;
   const originalHeight = document.body.clientHeight || document.documentElement.clientHeight; // 记录原有的视口高度
-  window.onresize = function() {
+  window.onresize = function () {
     var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (resizeHeight < originalHeight) {
       document.getElementById("app").style.height = originalHeight + "px"; // 恢复内容区域高度
@@ -677,9 +442,9 @@ export function addConsole() {
   let vConsole = document.createElement("script");
   vConsole.type = "text/javascript";
   vConsole.src = "https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js";
-  process.env.NODE_ENV === "development" &&
+  process.env.VUE_APP_VCONSOLE === "true" &&
     document.body.appendChild(vConsole) &&
-    (vConsole.onload = function() {
+    (vConsole.onload = function () {
       // eslint-disable-next-line
       new VConsole();
     });

@@ -47,57 +47,17 @@
 
 ```css
 @charset "utf-8";
-body,
-ul,
-ol,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-figure,
-form,
-fieldset,
-legend,
-input,
-textarea,
-button,
-p,
-blockquote,
-th,
-td,
-pre,
-xmp {
-  margin: 0;
+
+* {
   padding: 0;
+  margin: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-small,
-big,
-input,
-textarea,
-button,
-select {
-  font-size: 100%;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
-    sans-serif;
+*,
+::before,
+::after {
+  background-repeat: no-repeat;
+  box-sizing: inherit;
 }
 
 h1,
@@ -151,20 +111,6 @@ select {
   vertical-align: middle;
 }
 
-article,
-aside,
-footer,
-header,
-section,
-nav,
-figure,
-figcaption,
-hgroup,
-details,
-menu {
-  display: block;
-}
-
 audio,
 canvas,
 video {
@@ -199,12 +145,9 @@ input::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
-input::-webkit-input-placeholder {
-  color: #dcdfe6;
-}
-input::-ms-input-placeholder {
-  color: #dcdfe6;
-}
+
+input::-webkit-input-placeholder,
+input::-ms-input-placeholder,
 input::-moz-input-placeholder {
   color: #dcdfe6;
 }
@@ -216,35 +159,75 @@ mark {
 a,
 ins,
 s,
-u,
-del {
+u {
   text-decoration: none;
 }
 
-sup,
-sub {
-  vertical-align: baseline;
+details,
+main {
+  display: block;
+}
+
+[hidden] {
+  display: none; /* Add the correct display in IE */
+}
+
+[disabled] {
+  cursor: default;
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; /* Correct the cursor style of increment and decrement buttons in Chrome */
+}
+
+[type="search"] {
+  -webkit-appearance: textfield; /* Correct the odd appearance in Chrome and Safari */
+  outline-offset: -2px; /* Correct the outline style in Safari */
+}
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; /* Remove the inner padding in Chrome and Safari on macOS */
+}
+
+select {
+  -moz-appearance: none; /* Firefox 36+ */
+  -webkit-appearance: none; /* Chrome 41+ */
 }
 
 html,
 body {
   width: 100%;
   height: 100%;
-  -webkit-tap-highlight-color: transparent;
   color: #333;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
     sans-serif;
-  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: none;
+}
+
+a {
+  color: #333333;
+}
+input {
+  caret-color: #ff5353;
+}
+
+/* ios */
+div {
+  -webkit-appearance: none;
+}
+img {
+  -webkit-touch-callout: none;
 }
 ```
 
 ## public.scss
 
-```scss
-// $color: #e3f2ff;
+```css
 $color: #f8f8f8;
-$colorRed: #fc414a;
+$colorBg: #fafafa;
+$line: #cccccc;
 
 //单行文本溢出
 .ellipsis-one {
@@ -314,6 +297,15 @@ $colorRed: #fc414a;
 .an-up:hover {
   transform: translate3d(0, -10px, 0);
 }
+.isDisabled {
+  cursor: not-allowed;
+  background: #e4e4e4 !important;
+  color: #999 !important;
+}
+.scroll {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
 
 //按钮
 @mixin btn($w, $h, $color, $radius: true, $disabled: false) {
@@ -374,16 +366,25 @@ $colorRed: #fc414a;
   background-color: $color;
 }
 
-//计算百分比  percentage(56 / 750)
-@function math-percent($px, $base: 750) {
-  @return ($px / $base) * 100%;
-}
-
 //背景图片
 @mixin BG() {
-  background-size: 100%;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+// 扩大可点击区域
+//使用：.test { @include expand-range($top: -5px, $position: absolute) }
+@mixin expand-range($top: -10px, $right: $top, $bottom: $top, $left: $right, $position: relative) {
+  position: $position;
+  &:after {
+    content: "";
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
 }
 ```
 

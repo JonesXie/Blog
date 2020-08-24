@@ -1,13 +1,13 @@
 ## 掘金
 
-- [掘金主页](https://juejin.im/user/5ae1791ff265da0b9f3ffada)
-- [掘金收藏集](https://juejin.im/user/5ae1791ff265da0b9f3ffada/collections)
-- [掘金点赞文章](https://juejin.im/user/5ae1791ff265da0b9f3ffada/likes)
-- [webeasy 文章集 | 掘金](https://juejin.im/collection/5d889353518825067a410282)
-- [javascript 文章集 | 掘金](https://juejin.im/collection/5c9995a46fb9a01fbcfe909a)
-- [vue 文章集 | 掘金](https://juejin.im/collection/5cb009956fb9a0747e1dc5ff)
-- [react 文章集 | 掘金](https://juejin.im/collection/5cf32f656fb9a069f422429d)
-- [service 文章集 | 掘金](https://juejin.im/collection/5e10029e518825477ce97939)
+- [掘金主页](https://juejin.im/user/2524134427344637)
+- [掘金收藏集](https://juejin.im/user/2524134427344637/collections)
+- [掘金点赞文章](https://juejin.im/user/2524134427344637/likes)
+- [webeasy 文章集 | 掘金](https://juejin.im/collection/6845244158584569863)
+- [javascript 文章集 | 掘金](https://juejin.im/collection/6845244095112314887)
+- [vue 文章集 | 掘金](https://juejin.im/collection/6845244059271823374)
+- [react 文章集 | 掘金](https://juejin.im/collection/6845244059406041096)
+- [service 文章集 | 掘金](https://juejin.im/collection/6845244068809670670)
 
 ## 教程&论坛
 
@@ -20,6 +20,8 @@
 
 ## 面试&复习
 
+- [ECMAScript2015~2020 语法全解析](http://es.xiecheng.live/introduction/preface.html)
+- [FE-Interview-前端进阶之路](http://interview.poetries.top/) `订单号：10000499012020082400016832004228`
 - [前端面试复习必读文章](https://juejin.im/post/5e8b163ff265da47ee3f54a6)
 - [ES6/ES7/ES8/ES9 资料整理](https://juejin.im/post/5c02b106f265da61764aa0c1)
 
