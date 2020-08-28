@@ -210,17 +210,27 @@ reduce()方法接收一个回调函数作为第一个参数，回调函数又接
 
 ## 常用方法合集
 
-> 完整的**methods.js**
+> 完整**methods.js**
 
 ```js
-// 空值验证
-export function notNull(val) {
+/**
+ * 非空验证  undefined,null,'',{},[]
+ * @param {*} 验证的值
+ */
+export function isTrue(val) {
   let temp = true;
-  ([undefined, null, ""].includes(val) || JSON.stringify(val) === "{}") && (temp = false);
+  if (typeof val === "object" && val !== null) {
+    temp = !["{}", "[]"].includes(JSON.stringify(val));
+  } else {
+    temp = !!val;
+  }
   return temp;
 }
 
-// 时间转化 建议使用moment.js/day.js
+/**
+ * 时间转化 建议使用moment.js/day.js
+ * @param {Date} 时间
+ */
 export function getTime(val) {
   let now = new Date();
   val && (now = new Date(val));
@@ -236,7 +246,10 @@ export function getTime(val) {
   return year + "-" + add0(month) + "-" + add0(date) + " " + add0(hour) + ":" + add0(minute) + ":" + add0(second);
 }
 
-// 隐藏电话
+/**
+ * 隐藏电话
+ * @param {Number} 手机号
+ */
 export function hideTel(val) {
   let arr = val.split("");
   if (arr.length === 11) {
@@ -245,14 +258,30 @@ export function hideTel(val) {
   return false;
 }
 
-// 深度拷贝
-export function deepClone(obj) {
-  let _obj = JSON.stringify(obj),
-    objClone = JSON.parse(_obj);
-  return objClone;
+/**
+ * 深拷贝
+ * @param {*} 拷贝内容
+ */
+export function deepClone(obj = {}) {
+  if (typeof obj !== "object" || obj == null || obj instanceof RegExp || obj instanceof Date) {
+    // obj不是数据/对象，或者为 null/undefined,正则,日期,直接返回
+    return obj;
+  }
+  let result = {};
+  obj instanceof Array && (result = []);
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      // **递归调用**
+      result[key] = deepClone(obj[key]);
+    }
+  }
+  return result;
 }
 
-// 复制指定文字到剪切板  可以使用clipboard.js插件
+/**
+ * 复制指定文字到剪切板  可以使用clipboard.js插件
+ * @param {*} 复制的内容
+ */
 export function copyText(text) {
   if (document.execCommand("Copy")) {
     var inputZ = document.createElement("input");
@@ -267,13 +296,23 @@ export function copyText(text) {
   }
 }
 
-//验证手机号 valid
+/**
+ * 验证手机号
+ * @param {*} rule
+ * @param {*} 手机号
+ * @param {*} 回调函数
+ */
 export function validTel(rule, value, callback) {
   const reg = /^1[3-9]\d{9}$/;
   reg.test(value) ? callback("success") : callback(new Error("请输入正确手机号码"));
 }
 
-//验证身份证
+/**
+ * 验证身份证
+ * @param {*} rule
+ * @param {*} 身份证号
+ * @param {*} 回调函数
+ */
 export function checkID(rule, IDNumber, callback) {
   let reg15 = /^\d{8}(0\d|11|12)([0-2]\d|30|31)\d{3}$/; //15位
   let reg18 = /^\d{6}(18|19|20)\d{2}(0\d|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$/; //18位
@@ -301,7 +340,9 @@ export function checkID(rule, IDNumber, callback) {
   }
 }
 
-// 获取url全部参数，返回一个对象
+/**
+ * 获取url全部参数，返回一个对象
+ */
 export function getAllQuery() {
   let url = decodeURI(window.location.href);
   let temp1 = url.split("?");
@@ -314,12 +355,17 @@ export function getAllQuery() {
   return obj;
 }
 
-// 返回当前时间戳
+/**
+ * 返回当前时间戳
+ */
 export function getExpireTime() {
   return new Date().getTime();
 }
 
-// 根据name获取到url中对应的query参数
+/**
+ * 根据name获取到url中对应的query参数
+ * @param {*} 参数名
+ */
 export function getQueryString(name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
   var r = window.location.search.substr(1).match(reg);
@@ -329,12 +375,19 @@ export function getQueryString(name) {
   return null;
 }
 
-// 去除字符串的空格
+/**
+ * 去除字符串的空格
+ * @param {*} 字符串
+ */
 export function trim(str) {
   return str.replace(/\s|\xA0/g, "");
 }
 
-// 比较两个数组内的值是否相同 1.一维数组，2.不在乎顺序
+/**
+ * 比较两个数组内的值是否相同 1.一维数组，2.不在乎顺序
+ * @param {*} 数组一
+ * @param {*} 数组二
+ */
 export function compareArr(arra, arrb) {
   let temp = true;
   arra.length === arrb.length &&
@@ -346,9 +399,15 @@ export function compareArr(arra, arrb) {
 
 // 防抖 --搜索框/滚动条  短时间内大量触发同一事件，只会执行一次函数
 // 实现原理:设置一个定时器，约定在xx毫秒后再触发事件处理，每次触发事件都会重新设置计时器，直到xx毫秒内无第二次操作
+/**
+ * 防抖-搜索框/滚动条
+ * @param {*} 延迟执行函数
+ * @param {*} 等待时间
+ * @param  {...any} 携带参数
+ */
 export function debounce(func, wait, ...rest) {
   let timeout = null;
-  return function () {
+  return function() {
     let context = this;
     let args = Array.from(arguments);
     if (timeout) clearTimeout(timeout);
@@ -358,6 +417,12 @@ export function debounce(func, wait, ...rest) {
   };
 }
 let debounceTimeout = null;
+/**
+ * 防抖-搜索框/滚动条-传递参数
+ * @param {*} 延迟执行函数
+ * @param {*} 等待时间
+ * @param  {...any} 携带参数
+ */
 export function debounceParams(func, wait, ...rest) {
   if (debounceTimeout) clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(() => {
@@ -367,9 +432,14 @@ export function debounceParams(func, wait, ...rest) {
 
 // 节流 每隔一段时间就执行一次
 //设置一个定时器，约定xx毫秒后执行事件，如果时间到了，那么执行函数并重置定时器
+/**
+ * 节流 每隔一段时间就执行一次
+ * @param {*} 延迟执行函数
+ * @param {*} 等待时间
+ */
 export function throttle(func, wait) {
   let timeout = null;
-  return function () {
+  return function() {
     let context = this;
     let args = arguments;
     if (!timeout) {
@@ -381,6 +451,12 @@ export function throttle(func, wait) {
   };
 }
 let throttleTimeout = null;
+/**
+ * 节流 每隔一段时间就执行一次
+ * @param {*} 延迟执行函数
+ * @param {*} 等待时间
+ * @param {*} 携带参数
+ */
 export function throttleParams(func, wait, ...rest) {
   if (!throttleTimeout) {
     throttleTimeout = setTimeout(() => {
@@ -389,24 +465,30 @@ export function throttleParams(func, wait, ...rest) {
   }
 }
 
-// 验证微信内浏览器
+/**
+ * 验证微信内浏览器
+ */
 export function isWXNav() {
   let ua = navigator.userAgent.toLowerCase();
   return ua.match(/MicroMessenger/i) == "micromessenger";
 }
 
-// 验证安卓or ios
+/**
+ * 验证安卓or ios
+ */
 export function isIOS() {
   let Nav = window.navigator.userAgent.toLowerCase();
   // let isAndroid = `${Nav}`.includes("android");
   return `${Nav}`.includes("iphone");
 }
 
-// h5-andriod 软键盘兼容
+/**
+ * h5-andriod 软键盘兼容
+ */
 export function compatibleInput() {
   if (isIOS()) return;
   const originalHeight = document.body.clientHeight || document.documentElement.clientHeight; // 记录原有的视口高度
-  window.onresize = function () {
+  window.onresize = function() {
     var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
     if (resizeHeight < originalHeight) {
       document.getElementById("app").style.height = originalHeight + "px"; // 恢复内容区域高度
@@ -414,7 +496,9 @@ export function compatibleInput() {
   };
 }
 
-// h5键盘回落
+/**
+ * h5键盘回落
+ */
 export function inputDown() {
   window.scrollTo(0, Math.max(document.body.clientHeight, document.documentElement.clientHeight));
   // const isWechat = window.navigator.userAgent.match(/MicroMessenger\/([\d\.]+)/i);
@@ -428,7 +512,10 @@ export function inputDown() {
   // }
 }
 
-// 动态设置标签icon
+/**
+ * 动态设置标签icon
+ * @param {*} icon 链接
+ */
 export function setIcon(url) {
   let link = document.createElement("link");
   link.type = "image/x-icon";
@@ -437,14 +524,16 @@ export function setIcon(url) {
   document.getElementsByTagName("head")[0].appendChild(link);
 }
 
-// 移动端添加 console
+/**
+ * 移动端添加 console
+ */
 export function addConsole() {
   let vConsole = document.createElement("script");
   vConsole.type = "text/javascript";
   vConsole.src = "https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js";
   process.env.VUE_APP_VCONSOLE === "true" &&
     document.body.appendChild(vConsole) &&
-    (vConsole.onload = function () {
+    (vConsole.onload = function() {
       // eslint-disable-next-line
       new VConsole();
     });
