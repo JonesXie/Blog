@@ -314,8 +314,8 @@ export function validTel(rule, value, callback) {
  * @param {*} 回调函数
  */
 export function checkID(rule, IDNumber, callback) {
-  let reg15 = /^\d{8}(0\d|11|12)([0-2]\d|30|31)\d{3}$/; //15位
-  let reg18 = /^\d{6}(18|19|20)\d{2}(0\d|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$/; //18位
+  let reg15 = /^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$/g; //15位
+  let reg18 = /(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0\d|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)/g; //18位
   //判断15位
   if (reg15.test(IDNumber)) {
     callback("success");
