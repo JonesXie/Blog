@@ -320,6 +320,8 @@ http {
 
     #gzip  on; #开启gzip压缩
 
+    #client_max_body_size       20m; #请求体最大内容
+
     #当配置多个server节点，默认server names的缓存区大小就不够了，需要手动设置大一点server_names_hash_bucket_size 512;
 
     #配置多个server节点来搭建多个站点
@@ -331,6 +333,8 @@ http {
         #charset koi8-r; #编码格式，避免url参数乱码
 
         #access_log  logs/host.access.log  main;
+
+        #client_max_body_size       20m; #请求体最大内容
 
         #location用来匹配同一域名下多个URI的访问规则
         #比如动态资源如何跳转，静态资源如何跳转等
@@ -443,9 +447,79 @@ http {
 }
 ```
 
+## 配置多服务
+
+### 根据二级域名
+
+> 根据二级域名，配置不同服务;重开一个**http server**服务即可.
+
+```nginx
+// nginx.conf
+http {
+    # some configure
+    server {
+        listen       80;
+        server_name  xie.jonesxie.com;
+        location / {
+            root   /www/xie/;
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+    server {
+        listen       80;
+        server_name  jun.jonesxie.com;
+        location / {
+            root   /www/jun/;
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+}
+
+```
+
+### 根据不同目录
+
+> 相同域名下，不同目录指向不同服务;  
+> 1、**需注意 root 和 alias**之前的区别  
+> 2、单页面应用的路径名必须与 url 路径名相同
+
+```nginx
+// nginx.conf
+http {
+    # some configure
+    server {
+        listen       80;
+        server_name  xie.jonesxie.com;
+
+        root /web ;
+        # single-page-application
+        location ^~ /store {
+            try_files $uri $uri/ /store/index.html;
+        }
+        location ^~ /mall {
+            try_files $uri $uri/ /mall/index.html;
+        }
+        # mutli-page
+        location ^~ /openstore {
+            alias  /web/openstore/;
+            index  index.html index.htm;
+        }
+    }
+}
+
+```
+
 ## 访问权限设置
 
-#### 1、基础权限设置
+### 1、基础权限设置
 
 ```nginx
 location / {
@@ -693,6 +767,164 @@ server {
 
 > 1、fail_timeout : 设定服务器被认为不可用的时间段以及统计失败尝试次数的时间段，默认为 10s  
 > 2、max_fails : 设定 Nginx 与服务器通信的尝试失败的次数，默认为：1 次
+
+## root 和 alias 的区别
+
+> 两者都是确定文件路径的作用
+
+### root
+
+> 语法：**root path**  
+> 配置段：**http、server、location、if**
+
+```nginx
+location ^~ /t/ {
+    root /www/root/html/;
+}
+```
+
+### alias
+
+> 语法：**root path**  
+> 配置段：**location**
+
+```nginx
+location ^~ /t/ {
+    alias /www/root/html/new_t/;
+}
+```
+
+### 区别
+
+root 与 alias 主要区别在于 nginx 如何解释 location 后面的 uri，这会使两者分别以不同的方式将请求映射到服务器文件上
+
+- root 的处理结果是：root 路径＋ location 路径
+- alias 的处理结果是：使用 alias 路径`替换`location 路径
+
+```nginx
+// 如果一个请求的URI是/t/a.html时
+location ^~ /t/ {
+    root /www/root/html/;
+}
+// 返回服务器上的/www/root/html/t/a.html的文件
+
+location ^~ /t/ {
+    alias /www/root/html/new_t/;
+}
+// 返回服务器上的/www/root/html/new_t/a.html的文件
+```
+
+:::tip
+
+- 使用 alias 时，目录名后面一定要加"/"。
+- alias 在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。
+- alias 只能位于 location 块中。（root 可以不放在 location 中）
+  :::
+
+## location 匹配规则
+
+### 基础
+
+:::tip
+1、"="前缀指令匹配，如果匹配成功，则停止其他匹配。  
+2、普通字符串指令匹配，顺序是从长到短，匹配成功的 location 如果使用^~，则停止其他匹配（正则匹配）。  
+3、正则表达式指令匹配，按照配置文件里的顺序，成功就停止其他匹配。
+4、如果第三步中有匹配成功，则使用该结果，否则使用第二步结果。
+:::
+注意点:
+
+1.匹配的顺序是**先匹配普通字符串**，然后**再匹配正则表达式**。
+
+> 1、普通字符串匹配顺序是根据配置中字符长度从长到短，与配置的 location `顺序是无关紧要`的；
+> 2、正则表达式按照配置文件里的`顺序测试`，找到第一个匹配的正则表达式将停止搜索。
+
+2.一般情况下，匹配成功了普通字符串 location 后还会进行正则表达式 location 匹配。有两种方法改变这种行为:
+
+> 1、使用 `=` 前缀，这时执行的是严格匹配，并且匹配**成功后立即停止其他匹配**，同时处理这个请求；
+> 2、使用`^~`前缀，如果把这个前缀用于一个常规字符串那么告诉 nginx 如果**路径匹配那么不测试正则表达式**。
+
+### 匹配示例
+
+- **精确匹配**，只有完全匹配上才能生效。
+
+```nginx
+location = /uri 　
+```
+
+- 对 URL 路径进行**前缀匹配**，并且在正则之前。
+
+```nginx
+location ^~ /uri 　
+```
+
+- **区分大小写的正则匹配**。
+
+```nginx
+location ~ pattern　
+```
+
+- **不区分大小写的正则匹配**。
+
+```nginx
+location ~* pattern
+```
+
+- 不带**任何修饰符**，也表示前缀匹配，但是在正则匹配之后。
+
+```nginx
+location /uri
+```
+
+- **通用匹配**，任何未匹配到其它 location 的请求都会匹配到。
+
+```nginx
+location /
+```
+
+案例：
+
+```nginx
+server {
+    listen       80;
+    server_name  nginxcom;
+    index  index.html index.htm index.php;
+    charset koi8-r;
+    access_log  /var/log/nginx/host.access.log  main;
+
+    # 域名+项目1名称
+    location ^~ /a1/ {
+            alias /usr/share/nginx/html/a1/public/;
+    }
+
+    # 域名+项目2名称
+    location ^~ /a2/ {
+            alias /usr/share/nginx/html/a2/public/;
+    }
+
+    error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html/500.html;
+    }
+
+    #pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+
+    location ~ \.php$ {
+        root           html;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny  all;
+    }
+}
+```
 
 ## 参考资料
 
