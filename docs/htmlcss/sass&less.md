@@ -2,13 +2,13 @@
 
 [[toc]]
 
-## 一、sass 安装
+## sass 安装
 
 在 webpack 中安装使用：
 
 > npm i node-sass sass-loader -D
 
-## 二、sass 基本用法
+## sass 基本用法
 
 ### sass 变量(`$`)
 
@@ -94,18 +94,32 @@ a {
 > 1、SASS 允许一个选择器，继承另一个选择器`@extend`
 
 ```css
-div {
-  hi {
-    color: red;
-  }
+.button-basic {
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-//嵌套
+.button-report {
+  @extend .button-basic;
+  background-color: red;
+}
 
-a {
-  &:hover {
-    color: #ffb3ff;
-  }
+// 转化为
+
+.button-basic,
+.button-report {
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button-report {
+  background-color: red;
 }
 ```
 
@@ -181,13 +195,15 @@ $i: 6;
 }
 ```
 
-## 一、less 安装
+---
+
+## less 安装
 
 在 webpack 中安装使用：
 
 > npm i less less-loader -D
 
-## 二、less 基本用法
+## less 基本用法
 
 ### less 变量(@)
 
