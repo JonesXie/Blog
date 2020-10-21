@@ -78,8 +78,6 @@ npm install [package]@[tag] // 安装某个tag（比如beta,next或者latest）
 npm install [package] --save/-S // 加到 dependencies
 npm install [package] --save-dev/-D // 加到 devDependencies
 
-// 全局安装
-npm install [package] -g
 ```
 
 - 升级依赖包
@@ -100,6 +98,16 @@ npm uninstall [package]
 
 ```js
 npm install
+```
+
+- 全局文件
+
+```js
+// 全局安装
+npm install [package] -g
+
+// 查看全局安装包
+npm list -g --depth=0
 ```
 
 - 运行脚本
@@ -171,6 +179,16 @@ yarn remove [package]
 yarn;
 // 或者
 yarn install
+```
+
+- 全局文件
+
+```js
+// 全局安装
+yarn global add [package]
+
+// 查看全局安装包
+yarn global list --depth=0
 ```
 
 - 运行脚本
