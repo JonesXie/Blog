@@ -120,7 +120,7 @@ npm run [script] //用来执行在 package.json 中 scripts 属性下定义的�
 
 ### 安装
 
-> 在[官网](https://classic.yarnpkg.com/en/docs/install#windows-stable)中下载 **.msi**文件并安装
+> 在[官网](https://classic.yarnpkg.com/en/docs/install#windows-stable)中下载 **.msi**文件并安装,windows 最新版本[下载地址](https://classic.yarnpkg.com/latest.msi)
 
 ```js
 yarn - v; // 查看版本
