@@ -1,3 +1,7 @@
+:::warning 注意
+此博客已不更新，请点击链接查看最新内容，[链接](https://www.yuque.com/jonesxie/daydayup)
+:::
+
 ## 掘金
 
 - [掘金主页](https://juejin.im/user/2524134427344637)
