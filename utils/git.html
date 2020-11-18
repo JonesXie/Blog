@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Git 常用命令 | WEB前端开发</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    <link rel="shortcut icon" type="image/x-icon" href="https://jonesxie.gitee.io/blog/favicon.ico">
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?755218758b0bdcdb51201ed71eb251a0";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <meta name="description" content="前端开发中的每一点积累">
+    <link rel="preload" href="/blog/assets/css/0.styles.59e5c7a6.css" as="style"><link rel="preload" href="/blog/assets/js/app.4f9d2574.js" as="script"><link rel="preload" href="/blog/assets/js/2.f72c59ae.js" as="script"><link rel="preload" href="/blog/assets/js/7.076bc3ff.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.0ab6b499.js"><link rel="prefetch" href="/blog/assets/js/11.0d498a7c.js"><link rel="prefetch" href="/blog/assets/js/12.3ac27504.js"><link rel="prefetch" href="/blog/assets/js/13.31b5223b.js"><link rel="prefetch" href="/blog/assets/js/14.036665e0.js"><link rel="prefetch" href="/blog/assets/js/15.a827a702.js"><link rel="prefetch" href="/blog/assets/js/16.5227a005.js"><link rel="prefetch" href="/blog/assets/js/17.5972ea00.js"><link rel="prefetch" href="/blog/assets/js/18.07619e56.js"><link rel="prefetch" href="/blog/assets/js/19.314a0965.js"><link rel="prefetch" href="/blog/assets/js/20.6f945f3a.js"><link rel="prefetch" href="/blog/assets/js/21.144bb80e.js"><link rel="prefetch" href="/blog/assets/js/22.bc73a564.js"><link rel="prefetch" href="/blog/assets/js/23.e3222431.js"><link rel="prefetch" href="/blog/assets/js/24.1b84f980.js"><link rel="prefetch" href="/blog/assets/js/25.80d99ccc.js"><link rel="prefetch" href="/blog/assets/js/26.a1198939.js"><link rel="prefetch" href="/blog/assets/js/27.215e83dc.js"><link rel="prefetch" href="/blog/assets/js/28.381b9e54.js"><link rel="prefetch" href="/blog/assets/js/29.54cb1d9e.js"><link rel="prefetch" href="/blog/assets/js/3.f72e5a17.js"><link rel="prefetch" href="/blog/assets/js/30.57a2a7d7.js"><link rel="prefetch" href="/blog/assets/js/31.9fa01643.js"><link rel="prefetch" href="/blog/assets/js/4.10526966.js"><link rel="prefetch" href="/blog/assets/js/5.28394ccc.js"><link rel="prefetch" href="/blog/assets/js/6.227ab288.js"><link rel="prefetch" href="/blog/assets/js/8.d49339a3.js"><link rel="prefetch" href="/blog/assets/js/9.23ed684a.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.59e5c7a6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">WEB前端开发</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://jonesxie.gitee.io/css-tricks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CSSTricks
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://gitee.com/Jonesxie" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/JonesXie" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://jonesxie.gitee.io/css-tricks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CSSTricks
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://gitee.com/Jonesxie" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/JonesXie" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/blog/collections/" class="sidebar-link">我的收藏</a></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/webeasy/" class="sidebar-heading clickable"><span>WebEasy</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/utils/" class="sidebar-heading clickable router-link-active open"><span>工具集</span> <span class="arrow down"></span></a> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/utils/nginx.html" class="sidebar-link">nginx基础</a></li><li><a href="/blog/utils/git.html" aria-current="page" class="active sidebar-link">Git常用命令</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/utils/git.html#下载-安装" class="sidebar-link">下载&amp;安装</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#全局设置" class="sidebar-link">全局设置</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#git-工作流程" class="sidebar-link">Git 工作流程</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#分支操作" class="sidebar-link">分支操作</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#标签管理" class="sidebar-link">标签管理</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#常用错误处理" class="sidebar-link">常用错误处理</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#常用-git-命令总结" class="sidebar-link">常用 Git 命令总结</a></li><li class="sidebar-sub-header"><a href="/blog/utils/git.html#git-特殊操作" class="sidebar-link">Git 特殊操作</a></li></ul></li><li><a href="/blog/utils/npmyarn.html" class="sidebar-link">npm&amp;yarn</a></li><li><a href="/blog/utils/moment.html" class="sidebar-link">moment.js</a></li><li><a href="/blog/utils/vuepress.html" class="sidebar-link">vuepress搭建</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/webframe/" class="sidebar-heading clickable"><span>前端框架</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/javascript/" class="sidebar-heading clickable"><span>JavaScript</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/htmlcss/" class="sidebar-heading clickable"><span>HTML&amp;CSS</span> <span class="arrow right"></span></a> <!----></section></li><li><a href="/blog/service/" class="sidebar-link">服务端</a></li><li><section class="sidebar-group collapsable depth-0"><a href="/blog/webpack/" class="sidebar-heading clickable"><span>Webpack</span> <span class="arrow right"></span></a> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="git-常用命令"><a href="#git-常用命令" class="header-anchor">#</a> Git 常用命令</h1> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <p><strong>Git 原理详解及实用指南：<a href="https://juejin.im/book/5a124b29f265da431d3c472e" target="_blank" rel="noopener noreferrer">https://juejin.im/book/5a124b29f265da431d3c472e<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong><br> <strong>Git 问题和操作清单汇总：<a href="https://juejin.im/post/5d5d61e96fb9a06ace5254bd#heading-22" target="_blank" rel="noopener noreferrer">https://juejin.im/post/5d5d61e96fb9a06ace5254bd#heading-22<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong></p></div> <p><img src="/blog/assets/img/git.686511a2.png" alt="git" title="git命令总结"></p> <h2 id="下载-安装"><a href="#下载-安装" class="header-anchor">#</a> 下载&amp;安装</h2> <blockquote><p>git 官网: <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">https://git-scm.com/<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></blockquote> <p>从官网中下载对应版本，并安装。安装时可以完全使用默认设置即可！<br>
+随便某个文件下右键如果有 <code>Git Bash Here</code> 就安装成功！</p> <h2 id="全局设置"><a href="#全局设置" class="header-anchor">#</a> 全局设置</h2> <p>随便某个文件下右键选择 <code>Git Bash Here</code> 唤起 git 命令行工具</p> <div class="language-git extra-class"><pre class="language-git"><code>git config --list // 全局信息
+git config --global user.name <span class="token string">&quot;username&quot;</span> // 全局用户名
+git config --global user.email <span class="token string">&quot;email&quot;</span> // 全局邮箱
+
+// 查看全局
+git config user.name
+git config user.email
+</code></pre></div><h2 id="git-工作流程"><a href="#git-工作流程" class="header-anchor">#</a> Git 工作流程</h2> <h3 id="初始化"><a href="#初始化" class="header-anchor">#</a> 初始化</h3> <blockquote><p>在文件夹中初始化 git，将会生成<code>.git</code>隐藏文件夹，内放置 git 相关信息 <strong>勿删</strong></p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>git init
+</code></pre></div><h3 id="暂存区"><a href="#暂存区" class="header-anchor">#</a> 暂存区</h3> <blockquote><p>写完代码后，将修改的代码放入暂存区</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 将所有的修改都添加到暂存区 . 是 all 的简写
+git add .
+
+// 或者单独文件
+git add a.html
+</code></pre></div><h3 id="版本库"><a href="#版本库" class="header-anchor">#</a> 版本库</h3> <blockquote><p>暂存区的文件，通过 commit 提交到版本库中</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>git commit -m <span class="token string">&quot;本次提交的信息&quot;</span>
+</code></pre></div><h3 id="远端"><a href="#远端" class="header-anchor">#</a> 远端</h3> <blockquote><p>如果多人协作/备份代码，可以设置远程仓库</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 添加远程
+git remote add origin https://github.com/xxxx/xxx.git  //设置远程仓库(origin)
+
+// 推送代码
+git push -u origin master
+// -u 是设置后期使用 push将默认推送到 origin 远端,可以不设置
+
+// 拉取代码
+git pull origin master  // 或者 git pull 将默认从 origin/master中拉取
+</code></pre></div><h2 id="分支操作"><a href="#分支操作" class="header-anchor">#</a> 分支操作</h2> <h3 id="查看分支"><a href="#查看分支" class="header-anchor">#</a> 查看分支</h3> <div class="language-git extra-class"><pre class="language-git"><code>git branch  // 查看所有分支
+</code></pre></div><h3 id="创建分支-切换分支"><a href="#创建分支-切换分支" class="header-anchor">#</a> 创建分支&amp;切换分支</h3> <blockquote><p>创建分支和切换分支可以通过一行命令，所以分在一起</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 创建分支
+git branch new_branch
+
+// 切换分支
+git checkout new_branch
+
+// 创建分支并切换到此放分支
+git checkout -b new_branch
+</code></pre></div><h3 id="同步远端分支"><a href="#同步远端分支" class="header-anchor">#</a> 同步远端分支</h3> <blockquote><p>1、远程先开好分支然后拉到本地<br>
+2、本地先开好分支然后推送到远程</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 1、远程先开好分支然后拉到本地
+git checkout -b new_branch origin/new_branch  // origin远端中的new_branch分支
+
+// 2、本地先开好分支然后推送到远程
+git checkout -b new_branch  // 本地创建分支并切换到此分支
+git push origin new_branch:new_branch
+// 推送本地的new_branch(冒号前面的)分支到远程origin的new_branch(冒号后面的)分支(没有会自动创建)
+</code></pre></div><h3 id="合并分支"><a href="#合并分支" class="header-anchor">#</a> 合并分支</h3> <blockquote><p>通常是将分支合并到 master 主分支中，当然也可以一个分支合并另一个分支</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 此案例以master为主分支
+
+// 1、切换到需要合并到的分支上
+git checkout master
+
+// 2、合并分支
+git merge new_branch  // new_branch是你所要合并的分支名字
+
+// 3、解决冲突
+git将会自动处理不同的代码，但是出现冲突需要自己手动解决
+</code></pre></div><h3 id="删除分支"><a href="#删除分支" class="header-anchor">#</a> 删除分支</h3> <div class="language-git extra-class"><pre class="language-git"><code>// 已经合并的分支
+git branch -d new_branch
+
+// 如果没有合并的分支，上述命令行将会产生提示
+// 但是分支没用了，可以强制删除 -D
+git branch -D new_branch
+
+// 删除远程分支
+git push origin -d new_branch
+</code></pre></div><h2 id="标签管理"><a href="#标签管理" class="header-anchor">#</a> 标签管理</h2> <p>标签（tag）和 branch 很像，但是标签是不会移动的，而 branch 会根据修改进行移动的</p> <h3 id="查看-tag"><a href="#查看-tag" class="header-anchor">#</a> 查看 tag</h3> <div class="language-git extra-class"><pre class="language-git"><code>git tag
+</code></pre></div><h3 id="新建-tag"><a href="#新建-tag" class="header-anchor">#</a> 新建 tag</h3> <div class="language-git extra-class"><pre class="language-git"><code>// 本地创建
+git tag v1.0 // v1.0为tag名
+
+// 推送到远程
+git push origin v1.0 // 推送到origin远程v1.0的tag
+
+// 一次推送所有的tags
+git push origin --tags
+</code></pre></div><h3 id="删除-tag"><a href="#删除-tag" class="header-anchor">#</a> 删除 tag</h3> <div class="language-git extra-class"><pre class="language-git"><code>// 先删除本地tag
+git tag -d &lt;tag名&gt;
+
+// 删除远程tag
+git push origin --d tag &lt;tag名&gt;
+</code></pre></div><h2 id="常用错误处理"><a href="#常用错误处理" class="header-anchor">#</a> 常用错误处理</h2> <h3 id="修正-commit"><a href="#修正-commit" class="header-anchor">#</a> 修正 commit</h3> <h4 id="修正上一个-commit"><a href="#修正上一个-commit" class="header-anchor">#</a> 修正上一个 commit</h4> <blockquote><p><code>amend</code>:'修正'，当 commit 添加上<code>--amend</code>,用这个新的 commit 把当前 commit 替换掉</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>git commit --amend
+</code></pre></div><h4 id="修正不是上一个-commit"><a href="#修正不是上一个-commit" class="header-anchor">#</a> 修正不是上一个 commit</h4> <blockquote><p>rebase -i 是 rebase --interactive 的缩写形式，意为「交互式 rebase」<br> <a href="https://juejin.im/book/5a124b29f265da431d3c472e/section/5a1451dd5188253293142cd7" target="_blank" rel="noopener noreferrer">详细介绍<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 回退到倒数第二个
+git rebase -i HEAD^^
+</code></pre></div><h3 id="丢弃-commit"><a href="#丢弃-commit" class="header-anchor">#</a> 丢弃 commit</h3> <h4 id="丢弃上一个-commit"><a href="#丢弃上一个-commit" class="header-anchor">#</a> 丢弃上一个 commit</h4> <blockquote><p>1、reset --hard :丢弃上一个 commit<br>
+2、reset 参数解析</p> <blockquote><p>a、reset --hard：重置工作目录，工作目录里的内容会被完全重置为和 <code>HEAD</code> 的新位置相同的内容<br>
+b、reset --soft：保留工作目录，保留工作目录和暂存区中的内容，并把重置 <code>HEAD</code> 所带来的新的差异放进暂存区<br>
+c、reset 不加参数：保留工作目录，并清空暂存区</p></blockquote></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 丢弃上一个commit
+git reset --hard HEAD^
+</code></pre></div><h4 id="丢弃不是上一个-commit"><a href="#丢弃不是上一个-commit" class="header-anchor">#</a> 丢弃不是上一个 commit</h4> <blockquote><p>同样是使用 rebase: <strong>git rebase -i HEAD^^</strong></p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 回退到倒数第二个
+git rebase -i HEAD^^
+</code></pre></div><h3 id="修改-push-后的代码"><a href="#修改-push-后的代码" class="header-anchor">#</a> 修改 push 后的代码</h3> <h4 id="自己的分支"><a href="#自己的分支" class="header-anchor">#</a> 自己的分支</h4> <blockquote><p>对于自己能完全掌控的仓库，可以使用上面的方法,再强制推送</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// -f 表示强制推送
+git push origin branch1 -f
+</code></pre></div><h4 id="协作的分支"><a href="#协作的分支" class="header-anchor">#</a> 协作的分支</h4> <blockquote><p>下面代码就会增加一条新的 commit，它的内容和倒数第二个 commit 是相反的，从而和倒数第二个 commit 相互抵消，达到撤销的效</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>git revert HEAD^
+</code></pre></div><h2 id="常用-git-命令总结"><a href="#常用-git-命令总结" class="header-anchor">#</a> 常用 Git 命令总结</h2> <ul><li><code>git config --global user.name &quot;name&quot;</code>  设置全局名字</li> <li><code>git config --global user.email &quot;you@email.com&quot;</code> 设置全局邮箱</li> <li><code>git init</code> 初始化仓库</li> <li><code>git add .</code> 把工作区的文件全部提交到暂存区</li> <li><code>git commit -m &quot;xxx&quot;</code> 把暂存区的所有文件提交到仓库区</li> <li><code>git remote add origin https://github.com/xxx/xxx.git</code> 把本地仓库与远程仓库连接起来</li> <li><code>git push -u origin master</code> 把仓库区的主分支 master 提交到远程仓库里</li> <li><code>git push -u origin &lt;分支&gt;</code> 把其他分支提交到远程仓库</li> <li><code>git status</code> 查看当前仓库的状态</li> <li><code>git diff</code>  查看文件修改的具体内容</li> <li><code>git log</code>  显示从最近到最远的提交历史</li> <li><code>git clone https://github.com/xxx/xxx.git dirName</code> 克隆仓库到本地 dirName 文件中</li> <li><code>git commit --amend</code> 将此次修改提交到上次 commit 中</li> <li><code>git reset --hard 版本号</code> 回溯版本，版本号在 commit 的时候与 master 跟随在一起</li> <li><code>git reflog</code> 显示命令历史</li> <li><code>git checkout --</code>   撤销命令，用版本库里的文件替换掉工作区的文件。</li> <li><code>git branch</code> 查看当前所有分支</li> <li><code>git branch &lt;分支名字&gt;</code> 创建分支</li> <li><code>git checkout &lt;分支名字&gt;</code> 切换到分支</li> <li><code>git merge &lt;分支名字&gt;</code> 合并分支</li> <li><code>git branch -d &lt;分支名字&gt;</code> 删除分支,有可能会删除失败，因为 Git 会保护没有被合并的分支</li> <li><code>git branch -D &lt;分支名字&gt;</code> 强行删除，丢弃没被合并的分支</li> <li><code>git log --graph</code> 查看分支合并图</li> <li><code>git merge --no-ff &lt;分支名字&gt;</code> 合并分支的时候禁用 Fast forward (会丢失分支历史信息)</li> <li><code>git stash</code> 当有其他任务插进来时，把当前工作现场“存储”起来,以后恢复后继续工作</li> <li><code>git stash list</code> 查看你刚刚“存放”起来的工作去哪里了</li> <li><code>git stash apply</code> 恢复却不删除 stash 内容</li> <li><code>git stash drop</code> 删除 stash 内容</li> <li><code>git stash pop</code> 恢复的同时把 stash 内容也删了</li> <li><code>git remote</code> 查看远程库的信息，会显示 origin，远程仓库默认名称为 origin</li> <li><code>git remote -v</code> 显示更详细的信息</li> <li><code>git pull</code> 把最新的提交从远程仓库中抓取下来，在本地合并,和 git push 相反</li> <li><code>git rebase</code> 把分叉的提交历史“整理”成一条直线，看上去更直观</li> <li><code>git tag</code> 查看所有标签，可以知道历史版本的 tag</li> <li><code>git tag</code>   打标签，默认为 HEAD。比如 git tag v1.0</li> <li><code>git tag</code>  &lt;版本号&gt; 把版本号打上标签，版本号就是 commit 时，跟在旁边的一串字母数字</li> <li><code>git show</code>   查看标签信息</li> <li><code>git tag -a -m &quot;&lt;说明&gt;&quot;</code> 创建带说明的标签。 -a 指定标签名，-m 指定说明文字</li> <li><code>git tag -d</code>   删除标签</li> <li><code>git push origin</code>   推送某个标签到远程</li> <li><code>git push origin --tags</code> 一次性推送全部尚未推送到远程的本地标签</li> <li><code>git push origin :refs/tags/</code> 删除远程标签</li> <li><code>git add -f</code>   强制提交已忽略的的文件</li></ul> <h2 id="git-特殊操作"><a href="#git-特殊操作" class="header-anchor">#</a> Git 特殊操作</h2> <h3 id="偏移符号"><a href="#偏移符号" class="header-anchor">#</a> 偏移符号</h3> <blockquote><p>1、<code>^</code>：在 commit 的后面加一个或多个 ^ 号，可以把 commit 往回偏移，偏移的数量是 ^ 的数量<br>
+2、<code>~</code>：在 commit 的后面加上 ~ 号和一个数，可以把 commit 往回偏移，偏移的数量是 ~ 号后面的数</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>master^ 表示 master 指向的 commit 之前的那个 commit； HEAD^^ 表示 HEAD 所指向的 commit 往前数两个 commit
+
+HEAD~5 表示 HEAD 指向的 commit 往前数 5 个 commit。
+</code></pre></div><h3 id="生成-ssh-密钥"><a href="#生成-ssh-密钥" class="header-anchor">#</a> 生成 SSH 密钥</h3> <blockquote><p>1、本地 SSH 密钥存在于<strong>C:\Users\Jonesxie.ssh</strong>文件夹中<br>
+2、<strong>id_rsa</strong>为私钥，<strong>id_rsa.pub</strong>为公钥</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>// 需要先看看本地是否有ssh密钥，没有再创建
+ssh-keygen
+
+// 或者
+ssh-keygen -t rsa -C <span class="token string">&quot;anhuixieqijun@163.com&quot;</span>
+</code></pre></div><h3 id="远程同步"><a href="#远程同步" class="header-anchor">#</a> 远程同步</h3> <h4 id="设置多远程"><a href="#设置多远程" class="header-anchor">#</a> 设置多远程</h4> <div class="language-git extra-class"><pre class="language-git"><code>// 添加远程
+git remote add origin https://github.com/xxxx/xxx.git  //设置远程仓库(origin)
+git remote add mirror https://gitee.com/xxxx/xxx.git  //设置远程仓库(mirror)
+
+// 拉取推送
+git pull origin master
+git pull mirror master
+git push origin master
+git push mirror master
+</code></pre></div><h4 id="一条命令同时更新多个远程仓库"><a href="#一条命令同时更新多个远程仓库" class="header-anchor">#</a> 一条命令同时更新多个远程仓库</h4> <blockquote><p>pull 时，只 pull 第一个设置的远端仓库<br>
+push 时，将先后 push 到多个远端</p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>git remote set-url --add origin https://gitee.com/xxxx/xxx.git
+
+//拉取推送
+git push origin master
+</code></pre></div><blockquote><p><strong>.git/config 中的 origin 部分的内容</strong></p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>[remote <span class="token string">&quot;origin&quot;</span>]
+url = https://github.com/JonesXie/xxx.git
+url = https://gitee.com/Jonesxie/xxx.git
+fetch = +refs/heads/*:refs/remotes/origin/*
+</code></pre></div><h4 id="免输入密码操作远程仓库"><a href="#免输入密码操作远程仓库" class="header-anchor">#</a> 免输入密码操作远程仓库</h4> <blockquote><p>1、配置文件的 url 里配上用户名和密码即可<strong>免掉输入密码</strong><br>
+2、也可以使用<strong>SSH 密钥</strong></p></blockquote> <div class="language-git extra-class"><pre class="language-git"><code>url = https://${user}:${password}@github.com/JonesXie/xxx.git
+</code></pre></div><h3 id="gitignore"><a href="#gitignore" class="header-anchor">#</a> .gitignore</h3> <div class="language-git extra-class"><pre class="language-git"><code>.DS_Store
+node_modules
+/dist
+
+<span class="token comment"># local env files</span>
+.env.local
+.env.*.local
+
+<span class="token comment"># Log files</span>
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+<span class="token comment"># Editor directories and files</span>
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新时间:</span> <span class="time">2020/1/8 下午4:54:25</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/utils/nginx.html" class="prev">
+        nginx基础
+      </a></span> <span class="next"><a href="/blog/utils/npmyarn.html">
+        npm&amp;yarn
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.4f9d2574.js" defer></script><script src="/blog/assets/js/2.f72c59ae.js" defer></script><script src="/blog/assets/js/7.076bc3ff.js" defer></script>
+  </body>
+</html>
